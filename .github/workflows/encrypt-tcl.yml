@@ -42,9 +42,13 @@ jobs:
 
       - name: Create Dockerfile for TclPro
         run: |
-          # 创建一个使用旧版 CentOS 6 的 Dockerfile
+          # 创建一个使用旧版 CentOS 6 的 Dockerfile，使用替代镜像源
           cat > Dockerfile << 'EOF'
           FROM centos:6
+
+          # 配置替代镜像源
+          RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Base.repo && \
+              sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Base.repo
 
           # 安装必要的依赖项
           RUN yum -y update && \
