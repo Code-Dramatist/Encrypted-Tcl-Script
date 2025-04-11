@@ -28,187 +28,113 @@ on:
 jobs:
   encrypt-and-release:
     runs-on: ubuntu-latest
-    container:
-      image: rockylinux:8  # Using Rocky Linux 8 (based on Red Hat) for compatibility with TclPro
+    # 不使用容器，因为我们将在工作流中使用 Docker
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Install Docker
         run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo systemctl start docker
+          sudo systemctl enable docker
+          sudo usermod -aG docker $USER
+
+      - name: Create Dockerfile for TclPro
+        run: |
+          # 创建一个使用旧版 CentOS 6 的 Dockerfile
+          cat > Dockerfile << 'EOF'
+          FROM centos:6
+
           # 安装必要的依赖项
-          dnf -y update
+          RUN yum -y update && \
+              yum -y install tcl expect libX11 libXScrnSaver libXt libXmu libXft libXext libXrender fontconfig libXpm libSM libICE which file findutils glibc-devel
 
-          # 启用额外的存储库
-          dnf -y install epel-release
-          dnf -y install dnf-plugins-core
-          dnf config-manager --set-enabled powertools
+          # 创建工作目录
+          WORKDIR /app
 
-          # 安装 X11 相关库和其他工具
-          dnf -y install tcl expect libX11 libXScrnSaver libXt libXmu libXft libXext libXrender fontconfig libXpm libSM libICE which file findutils glibc-devel
+          # 复制 TclPro 和 Tcl 脚本
+          COPY ./tclpro1.4 /app/tclpro1.4/
+          COPY ./src /app/src/
 
-          # 使用工程目录中的 TclPro
-          echo "\n\n===== 使用工程目录中的 TclPro ====="
-          ls -la ./tclpro1.4
-          ls -la ./tclpro1.4/unix
+          # 创建输出目录
+          RUN mkdir -p /app/output
 
-          # 创建自动安装脚本
-          cat > /tmp/tclpro_install.exp << 'EOF'
-          #!/usr/bin/expect -f
-          # 自动安装 TclPro 的 expect 脚本
-          set timeout -1
+          # 创建安装脚本
+          RUN echo '#!/bin/bash\n\
+          mkdir -p /opt/tclpro1.4\n\
+          cd /app\n\
+          ./tclpro1.4/setup.sh -Text << EOF\n\
+          y\n\
+          /opt/tclpro1.4\n\
+          y\n\
+          EOF\n\
+          ' > /app/install_tclpro.sh && \
+              chmod +x /app/install_tclpro.sh
 
-          # 创建安装目录并设置权限
-          spawn mkdir -p /opt/tclpro1.4
-          expect eof
+          # 创建加密脚本
+          RUN echo '#!/bin/bash\n\
+          # 查找 procomp 工具\n\
+          PROCOMP_PATH=$(find /opt/tclpro1.4 -name "procomp" -type f | head -1)\n\
+          if [ -z "$PROCOMP_PATH" ]; then\n\
+            echo "Error: procomp not found"\n\
+            exit 1\n\
+          fi\n\
+          \n\
+          # 加密所有 Tcl 脚本\n\
+          find /app/src -name "*.tcl" | while read tcl_file; do\n\
+            rel_path=$(dirname "$tcl_file" | sed "s|^/app/src/||")\n\
+            filename=$(basename "$tcl_file" .tcl)\n\
+            mkdir -p "/app/output/$rel_path"\n\
+            "$PROCOMP_PATH" "$tcl_file" -o "/app/output/$rel_path/$filename.tbc"\n\
+            echo "Encrypted $tcl_file to /app/output/$rel_path/$filename.tbc"\n\
+          done\n\
+          ' > /app/encrypt_tcl.sh && \
+              chmod +x /app/encrypt_tcl.sh
 
-          spawn chmod 777 /opt/tclpro1.4
-          expect eof
-
-          # 启动安装程序
-          spawn ./tclpro1.4/setup.sh -Text
-
-          # 处理可能的错误或提示
-          expect {
-            "Do you accept the terms of the license agreement? \\(y/n\\) " {
-              send "y\r"
-              exp_continue
-            }
-            "Installation directory \\(default: /usr/local/tclpro1.4\\): " {
-              send "/opt/tclpro1.4\r"
-              exp_continue
-            }
-            "Directory /opt/tclpro1.4 exists.  Overwrite? \\(y/n\\) " {
-              send "y\r"
-              exp_continue
-            }
-            "Installation complete." {
-              # 安装完成
-            }
-            timeout {
-              puts "安装超时！"
-              exit 1
-            }
-            eof {
-              # 安装程序退出
-            }
-          }
+          # 设置入口点
+          CMD ["/bin/bash", "-c", "/app/install_tclpro.sh && /app/encrypt_tcl.sh"]
           EOF
 
-          # 给脚本执行权限
-          chmod +x /tmp/tclpro_install.exp
+          # 显示 Dockerfile 内容
+          cat Dockerfile
 
-          # 运行自动安装脚本
-          /tmp/tclpro_install.exp
-
-          # 设置环境变量
-          export TCLPRO_HOME=/opt/tclpro1.4
-          export PATH=$TCLPRO_HOME/bin:$PATH
-
-          # 验证安装
-          echo "\n\n===== TclPro 安装目录结构 ====="
-          ls -la /opt/tclpro1.4
-
-          # 检查 TclPro 安装目录
-          echo "\n\n===== 检查 TclPro 安装目录 ====="
-          find /opt/tclpro1.4 -type d | sort
-
-          # 检查 bin 目录
-          echo "\n\n===== 检查 bin 目录 ====="
-          find /opt/tclpro1.4 -name "bin" -type d | sort
-
-          # 列出 bin 目录中的文件
-          echo "\n\n===== 列出 bin 目录中的文件 ====="
-          find /opt/tclpro1.4 -path "*/bin/*" -type f | sort
-
-          # 查找 procomp 工具
-          echo "\n\n===== 查找 procomp 工具 ====="
-          PROCOMP_PATH=$(find /opt/tclpro1.4 -name "procomp" -type f | head -1)
-
-          if [ -n "$PROCOMP_PATH" ]; then
-            echo "找到 procomp: $PROCOMP_PATH"
-            ls -la "$PROCOMP_PATH"
-            file "$PROCOMP_PATH"
-          else
-            echo "错误: 无法找到 procomp 工具。TclPro 安装可能不完整。"
-            echo "尝试在整个系统中查找 procomp:"
-            find / -name "procomp" -type f 2>/dev/null || echo "找不到 procomp"
-            exit 1
-          fi
-
-          echo "\n\n===== 环境变量 ====="
-          echo "TCLPRO_HOME=$TCLPRO_HOME"
-          echo "PATH=$PATH"
-
-          echo "\n\n===== TclPro 已安装在: $TCLPRO_HOME ====="
-
-      - name: Find and encrypt Tcl scripts
+      - name: Build and Run Docker Image
         run: |
-          mkdir -p output
+          # 构建 Docker 镜像
+          sudo docker build -t tclpro-centos6 .
 
-          # 确认 TclPro 安装状态
-          echo "\n\n===== 确认 TclPro 安装状态 ====="
-          export TCLPRO_HOME=/opt/tclpro1.4
-          export PATH=$TCLPRO_HOME/bin:$PATH
+          # 运行 Docker 容器
+          sudo docker run --name tclpro-container tclpro-centos6
 
-          # 使用之前找到的 procomp 路径
-          if [ -n "$PROCOMP_PATH" ] && [ -f "$PROCOMP_PATH" ]; then
-            echo "procomp 工具存在于 $PROCOMP_PATH"
-            ls -la "$PROCOMP_PATH"
-            file "$PROCOMP_PATH"
-          else
-            echo "\n\n错误: procomp 工具不存在!"
-            echo "列出 /opt 目录内容:"
-            ls -la /opt
-            echo "列出 /opt/tclpro1.4 目录内容 (如果存在):"
-            ls -la /opt/tclpro1.4 || echo "目录不存在"
+          # 从容器中复制加密后的文件
+          sudo docker cp tclpro-container:/app/output .
+
+          # 显示加密后的文件
+          find output -type f | sort
+
+          # 检查是否有加密后的文件
+          if [ -z "$(find output -type f)" ]; then
+            echo "Error: No encrypted files were generated!"
             exit 1
           fi
 
-          # 准备加密文件列表
-          echo "\n\n===== 开始加密 Tcl 脚本 ====="
 
-          # 检查是否指定了特定文件
-          SPECIFIC_FILE="${{ github.event.inputs.specific_file }}"
 
-          if [ -n "$SPECIFIC_FILE" ] && [ -f "$SPECIFIC_FILE" ]; then
-            echo "已指定加密文件: $SPECIFIC_FILE"
-            # 如果指定了文件并且文件存在，则只加密该文件
-            FILES_TO_ENCRYPT="$SPECIFIC_FILE"
-          else
-            if [ -n "$SPECIFIC_FILE" ]; then
-              echo "警告: 指定的文件 '$SPECIFIC_FILE' 不存在，将加密所有 .tcl 文件"
-            else
-              echo "未指定特定文件，将加密所有 .tcl 文件"
-            fi
-            # 如果没有指定文件或指定的文件不存在，则加密所有 .tcl 文件
-            FILES_TO_ENCRYPT=$(find src -name "*.tcl")
+      - name: Check Encrypted Files
+        run: |
+          # 检查加密后的文件
+          echo "\n\n===== 检查加密后的文件 ====="
+          find output -type f -name "*.tbc" | sort
+
+          # 显示文件内容示例
+          if [ -n "$(find output -type f -name "*.tbc" | head -1)" ]; then
+            SAMPLE_FILE=$(find output -type f -name "*.tbc" | head -1)
+            echo "\n\n===== 文件内容示例: $SAMPLE_FILE ====="
+            head -10 "$SAMPLE_FILE"
           fi
-
-          # 遍历并加密文件
-          echo "$FILES_TO_ENCRYPT" | while read tcl_file; do
-            echo "\n处理文件: $tcl_file"
-
-            # Get the relative path and filename
-            rel_path=$(dirname "$tcl_file" | sed 's|^src/||')
-            filename=$(basename "$tcl_file" .tcl)
-
-            # Create output directory structure if it doesn't exist
-            mkdir -p "output/$rel_path"
-
-            # Encrypt the Tcl file to TBC format using TclPro's procomp
-            echo "执行加密命令: $PROCOMP_PATH $tcl_file -o output/$rel_path/$filename.tbc"
-            "$PROCOMP_PATH" "$tcl_file" -o "output/$rel_path/$filename.tbc"
-
-            # 检查加密结果
-            if [ -f "output/$rel_path/$filename.tbc" ]; then
-              echo "成功加密 $tcl_file 到 output/$rel_path/$filename.tbc"
-              ls -la "output/$rel_path/$filename.tbc"
-            else
-              echo "错误: 加密失败! 未生成 TBC 文件"
-            fi
-          done
 
       - name: Verify encryption
         run: |
@@ -224,6 +150,10 @@ jobs:
             echo "Error: No TBC files were generated!"
             exit 1
           fi
+
+          # 显示 Docker 容器的日志
+          echo "\n\n===== Docker 容器日志 ====="
+          sudo docker logs tclpro-container
 
       - name: Create Release
         id: create_release
