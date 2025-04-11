@@ -1,0 +1,445 @@
+INSTALL-CDROM.TXT:  TclPro 1.4.1
+
+Copyright (c) 1998-2000 by Ajuba Solutions
+All rights reserved
+-------------------
+
+Contents
+========
+    0. Summary and Quick Start
+    1. Introduction
+    2. Upgrading to the Latest TclPro Version
+    3. Installing TclPro on Windows
+    4. Installing TclPro or Ajuba Solutions License Server on UNIX
+    5. Choosing Unix Licensing Options
+    6. Target Directory for TclPro Installation
+    7. Multiple Unix Platforms
+    8. TclPro Components
+    9. Installing Adobe Acrobat Reader
+   10. Running TclPro Tools
+   11. Contact Info
+
+0. Summary and Quick Start
+==========================
+
+On UNIX systems, run the "setup.sh" program on the CD-ROM.
+
+On Windows, run the "setup.exe" program on the CD-ROM. This is launched
+automatically if you allow autorun scripts.
+
+Install TclPro 1.4 before uninstalling earlier versions so your
+preference information can be carried forward to the new version.
+
+You can leave earlier versions of TclPro installed.  The license and
+preference information for different versions do not conflict.  You
+should install different versions in different locations.
+
+Multi-platform installs are supported so you can install TclPro on your
+file server and share the installation on machines with different
+architectures.  Only the UNIX installers offer multiple platforms to be
+installed.  For this to work, all file server clients must access the
+TclPro installation directory via the same pathname.  The executable
+programs are segregated under directories named by the hardware
+platform.
+
+There are two kinds of license keys: named user and shared network.
+Named user licenses are installed under the users home directory on
+UNIX and in the registry on Windows. Use the "prolicense" program to
+install license keys.
+
+Shared network licenses work with the Ajuba Solutions License Server,
+which must run on a UNIX machine accessible via TCP/IP.  It is best to
+install the License Server from a root account so it can install boot
+scripts that start the server when the machine boots up.  Otherwise you
+have to install the boot scripts yourself.  For security reasons, the
+License Server runs under a different user ID than root.  You do not
+have to install TclPro on the machine running the License Server.
+
+Use the License Server's Web interface to install shared network
+licenses.  The Web interface also provides reports about TclPro usage
+at your site.
+
+If you use the License Server and you install TclPro on a file server,
+you can record the location of the License Server as part of the TclPro
+installation so users do not have to run prolicense.  To achieve this,
+either run "prolicense -admin", or install TclPro under the Shared
+Network License option from the first screen of the installer.  The
+only difference between the two paths that install TclPro is how they
+invoke the license manager at the end of the process.
+
+Please read the rest of this README for more details about installation.
+
+1. Introduction
+===============
+
+This file describes how to install TclPro on the following 
+supported platforms:
+
+  Operating System	Architecture	Version
+  ----------------      ------------    -------
+  Irix			SGI (Mips)	6.3+
+  HP-UX			HP (PARISC)	10.20+
+  Linux			Intel		Red Hat 5.0+ or SuSE 6.0+ *
+  Solaris		Sun (Sparc)	2.5+
+  Windows		Intel		95/98/NT 4.0+/2000
+
+* Note -- Ajuba Solutions believes that TclPro will work with other 
+  Linux distributions, such as Caldera Linux, that use glibc2. 
+  However, Ajuba Solutions does not support these other Linux operating 
+  systems at this time.
+
+*** Important ***
+
+  If at any time you need to move any of the files or folders
+  containing files in the TclPro installation to a new location,
+  you should uninstall and reinstall TclPro.
+
+  After installing, consult the README file in the TclPro installation
+  directory for more information about using TclPro.
+
+
+2. Upgrading to the Latest TclPro Version
+=========================================
+
+If you are upgrading from a prior version of TclPro, we recommend that
+you install and use the new version before uninstalling the prior
+version.  After installing this release, please see the sections on
+Licensing and Upgrading in the README file of your new installation
+for information on how to gracefully uninstall prior versions of
+TclPro.
+
+If you are upgrading from an alpha or beta version of TclPro 1.4, we
+recommend the following before installing this release: on Windows you
+should uninstall the prior version before installing the final 1.4
+release.  On Unix, you should remove the TclPro Debugger preference
+files that match ~/.TclPro/1.4/* from your filesystem.
+
+2b. Upgrading the License Server
+================================
+
+There is no need to upgrade the Ajuba Solutions License Server for
+TclPro 1.4.  All you need to do is install the new Shared Network
+License keys for TclPro 1.4.
+
+However, if you previously installed the License Server from TclPro 1.3
+and experienced troubles entering administrator passwords via the Web
+interface, you can upgrade to fix that problem.  If you re-install the
+1.4 License Server into the same location as the 1.3 (or 1.2) server then
+it will automatically pick up your configuration information.  All your
+existing licenses are preserved.
+
+3. Installing TclPro on Windows
+===============================
+
+Note: If you are installing on a Windows NT system, you must be the
+Administrator user, or a user with Administrator privileges, to
+install TclPro.
+
+Inserting the CD-ROM will automatically invoke the install program
+setup.exe.  The installer will take you through the steps necessary to
+install TclPro.  If you have disabled autoplay for CD-ROMs, you may
+invoke the install program manually.  Select "Run" from the Windows
+Start Menu, and enter the path to the setup program.  On a system
+where D: is your CD-ROM drive, you will enter:
+
+      D:\setup.exe
+
+Please see the "Target Directory" and "TclPro Components" sections for
+guidance in choosing which files to install and where to install them.
+At the end of the installation, the installer will invoke the License
+Manager to allow you to enter your Named User License key (or the
+location of Ajuba Solutions License Server) that you are using.
+
+Although Ajuba Solutions License Server must be installed on Unix, Windows
+users can choose to use Shared Network Licenses.  All that is required
+is a TCP/IP connection to a Unix machine on which the Ajuba Solutions
+License Server is running.  Ajuba Solutions License Server can run on any of
+our supported Unix platforms listed in the "Introduction" section.
+You can run the TclPro License Manager (part of the TclPro
+installation) to specify the location of the Ajuba Solutions License Server.
+
+Your license key is printed on the CD-ROM case and on the packing list
+included with your TclPro shipment.
+
+If you need to change your TclPro license key (or the location of the
+Ajuba Solutions License Server) at any time after installation, you can run
+the License Manager program.  For example,
+
+	prolicense
+
+4. Installing TclPro or Ajuba Solutions License Server on UNIX
+========================================================
+
+Some UNIX systems restrict access to the CD-ROM drive to the root
+user.  If you experience difficulties in accessing your TclPro CD-ROM,
+consider retrying the installation process as the root user.  You must
+also have permission to install to the directory that you select.  For
+example, the default destination directory:
+
+      /opt/ajuba/TclPro<version>
+
+is normally restricted to the root user.  If you choose to install to
+this path, you will need to do so from the root account.
+
+4a. Mounting the CD-ROM
+-----------------------
+
+Insert the TclPro CD-ROM into your CD-ROM drive.  To access the CD-ROM
+on HP-UX and Linux, you must mount the drive to a directory on your
+filesystem.  Use the command in the table below to mount the CD-ROM.
+
+Note: the HP-UX example in the table below assumes the CD-ROM device
+is "/dev/dsk/c1t2d0".  Consult with your system administrator to learn
+the name of your CD-ROM device.
+
+	OS		Command to mount CD-ROM
+	--		-----------------------
+	HP-UX		mount -o cdcase /dev/dsk/c1t2d0 /cdrom
+	Red Hat Linux	mount -o exec,mode=0555 /mnt/cdrom
+	Suse Linux	mount -o exec,mode=0555 /mnt/cdrom
+	Caldera Linux	mount -o exec,mode=0555 /dev/scd0 /mnt/cdrom
+
+Use the command in the table below to run the TclPro installer.  To
+run a text-only installation, just add the -T argument on the command
+line.
+
+	OS		Command to start installer
+	--		--------------------------
+	HP-UX		/cdrom/setup.sh
+	Irix		/CDROM/setup.sh
+	Red Hat Linux	/mnt/cdrom/setup.sh
+	Suse Linux	/mnt/cdrom/setup.sh
+	Caldera Linux	/mnt/cdrom/SETUP.SH or /mnt/cdrom/setup.sh
+	Solaris		/cdrom/tclpro_1_3/setup.sh
+
+Once you have started the installer program, see the "Choosing Unix
+Licensing Options" section below for details about installation
+options.
+
+4b. Unmounting the CD-ROM
+-------------------------
+
+To unmount the CD-ROM, follow the directions in the table below.  Note
+that you may need root access to invoke these commands.
+
+	OS		Command to unmount CD-ROM
+	--		-------------------------
+	HP-UX		umount /cdrom
+	Irix		eject cdrom
+	Linux		umount /mnt/cdrom
+	Solaris		eject cdrom
+
+
+5. Choosing Unix Licensing Options
+==================================
+
+The installation program begins by asking you whether you are using a
+Named User License or a Shared Network License.  Your choice depends
+on which type of TclPro license you selected when you purchased
+TclPro.  See the Licenses section in the README file for more details
+about the new Shared Network License option.
+
+5a. Installing TclPro for a Named User
+--------------------------------------
+
+This installation of TclPro is for you if either one of the following
+applies to you:
+
+    1) you are using a Named User License
+    2) you have a TCP/IP connection to a machine running Ajuba Solutions
+       License Server, but you can't access the site installation of
+       TclPro from your machine.
+
+Please see the "Target Directory", "Multiple Unix Platforms", and
+"TclPro Components" sections for guidance in choosing which files to
+install and where to install them.
+
+At the end of the installation, the installer will invoke the License
+Manager to allow you to enter your Named User License key (or the
+location of Ajuba Solutions License Server) that you are using.
+
+Your license key is printed on the CD-ROM case and on the packing list
+included with your TclPro shipment.
+
+If you need to change your TclPro license key (or the location of the
+Ajuba Solutions License Server) at any time after installation, you can run
+the License Manager program.  For example,
+
+	prolicense
+
+5b. Installing Ajuba Solutions License Server
+---------------------------------------
+
+Installation of Ajuba Solutions License Server is only necessary for people
+using the Shared Network License.
+
+Complete installation of Ajuba Solutions License Server requires that you
+run the installer as root on one of the supported Unix platforms
+(listed in the "Introduction" section).  For security purposes, you
+will also be asked to enter a User ID and Group ID, so the server will
+not actually run as root.  You will then need to specify a port for
+communication between the server and TclPro tools.
+
+Following the port, you will be asked to enter a destination directory
+and a log directory.  Because log information can grow large over
+time, many administrators like the log files to exist on separate
+disks from an installation.  The installer will create the following
+files:
+
+	<destinationDir>/prolserver
+	<destinationDir>/prolserver.conf
+	<destinationDir>/prolserver.pid
+	<destinationDir>/prolserver.state
+	<destinationDir>/INSTALL.LOG
+	<logDir>/prolserver.<port>.log
+
+The "<destinationDir>/prolserver.conf" file contains information you
+entered during the installation process as well as the license key you
+will enter later via the Web interface to Ajuba Solutions License Server.
+
+The "<logDir>/prolserver.<port>.log" file contains all information
+regarding usage of TclPro tools.  The Web interface includes usage
+reports that use the information in this log file.
+
+After installation, you may choose to have the installer launch the
+server program, "prolserver", for you.  Note that "prolserver" will
+run as the userId you entered during installation, not as root.  Once
+you have launched the server, you must enter user information and a
+license key via your Web browser at:
+
+	http://<hostname>:<port>
+
+If you are running Ajuba Solutions License Server on the machine
+"mars.mycompany.com" at the port 2577, your URL should look like the
+following:
+
+	http://mars.mycompany.com:2577
+
+At this Web location, you can setup your server and then enter the
+Shared Network License key.  The key is printed on the CD-ROM case and
+on the packing list included with your TclPro shipment.  This Web
+location has pointers to more documentation on this subject.
+
+5c. Installing TclPro for Shared Network License Users
+------------------------------------------------------
+
+TclPro installation for Shared Network License Users is useful only
+for people using Shared Network Licenses.  Please see the "Target
+Directory", "Multiple Unix Platforms", and "TclPro Components"
+sections for guidance in choosing which files to install and where to
+install them.
+
+At the end of the installation, the installer will ask you to enter
+the location (host machine and port number) of your Ajuba Solutions License
+Server.  If you need to change these values at any time after
+installation, you can run the License Manager program with the -admin
+flag.  For example,
+
+	prolicense -admin
+
+After setting the location of your Ajuba Solutions License Server, no
+further setup is required. Tools in this TclPro installation will
+automatically access Ajuba Solutions License Server running at the
+location you specified.
+
+
+6. Target Directory for TclPro Installation
+===========================================
+
+The installation program allows you to specify an absolute pathname to
+the directory where TclPro will be installed.  TclPro creates several
+files and directories in the target directory.  It is best to install
+each TclPro version in its own directory, for example:
+
+	Unix				Windows
+	----				-------
+        /opt/ajuba/TclPro1.3	C:\Program Files\TclPro1.3
+        /opt/ajuba/TclPro1.4	C:\Program Files\TclPro1.4
+
+You must also have permissions to install to the directory that you
+select.  On Unix, the default destination directory
+"/opt/ajuba/TclPro<version>" is normally restricted to the root
+user.  If you choose to install to this path, you will need to do so
+from the root account.  If you do not have root access to your
+machine, ask your system administrator to help you with the
+installation, or install the product into a directory where you have
+write permission (e.g. your user account).
+
+
+7. Multiple Unix Platforms
+==========================
+
+The Unix installation program allows you to install TclPro for
+multiple Unix platforms in one target directory.  Note that each
+machine using TclPro from the same directory must mount that directory
+in the same manner. For example, if you install in
+/opt/ajuba/TclPro on one machine, other machines must mount that
+same directory (or have access to it) using the same path.
+
+
+8. TclPro Components
+====================
+
+The installation program allows you to choose among the following
+components:
+
+	Basic
+	C Development Libraries
+	Tcl Sources
+	Tk Sources
+	[incr Tcl] Sources
+	TclX Sources
+	Expect Sources (Unix only)
+
+Basic installation includes everything you need to run the TclPro
+tools, including documentation, demos, libraries (for Tcl, Tk, and
+incorporated extensions), and the tools themselves.
+
+The "C Development Libraries" option is only necessary if you are
+building a custom Tcl or Tk interpreter, or if you wish to use TclPro
+Wrapper to wrap a custom application or an application that requires
+any unsupported extensions.  The "C Development Libraries" component
+offers libraries and header files needed to build a custom Tcl or Tk
+interpreter.  See the README file for details about supported
+extensions.
+
+The remaining options include sources of Tcl, Tk, and incorporated
+extensions that you may need to create custom Tcl interpreters.
+
+
+9. Installing Adobe Acrobat Reader
+==================================
+
+The first decision screen of the TclPro installer offers the option to
+install Adobe Acrobat Reader 3.0.  The TclPro User's Guide uses PDF
+format, readable by Adobe Acrobat Reader 3.0+.  On Windows, this
+option is selected by default if you don't already have a 3.0+
+installation on your path.
+
+10. Running TclPro Tools
+========================
+
+Please see the README file for details on how to set your PATH
+environment variable and run the TclPro tools that you've just
+installed.
+
+11. Contact Info
+================
+
+If you have any questions or comments, please contact:
+
+    sales@ajubasolutions.com
+
+	   or
+
+    support@ajubasolutions.com
+
+Thank you very much for working with Ajuba Solutions and TclPro!
+
+Sincerely,
+The Ajuba Solutions Team
+
+2593 Coast Ave.
+Mountain View,  CA 94043
+Phone: 650-210-0100
+URL: http://www.ajubasolutions.com/

@@ -1,0 +1,296 @@
+README:  TclPro 1.4.1
+August 29, 2000
+
+Copyright (c) 1998-2000 by Ajuba Solutions
+All rights reserved
+-------------------
+
+Contents
+========
+
+    1. Introduction to TclPro 1.4
+    2. Documentation
+    3. Running TclPro Tools
+    4. Licensing
+    5. C Development on Windows
+    6. Supported Operating Systems and Tcl/Tk Versions
+    7. Support and bug fixes
+    8. Contact Info
+
+
+1. Introduction to TclPro 1.4
+=============================
+
+TclPro 1.4 is Ajuba Solutions' development environment for professional Tcl
+developers.  TclPro 1.4 supports Tcl/Tk 8.3 (as well as some earlier
+versions, as documented in "Supported Tcl/Tk Versions").  TclPro 1.4
+includes TclPro Debugger, a powerful graphical debugger, TclPro
+Checker, a Tcl static code checker, TclPro Compiler, a tool for
+creating bytecode files from Tcl scripts, and TclPro Wrapper, a tool
+for packaging collections of Tcl scripts and auxiliary files into a
+single executable file for distribution.  TclPro 1.4 also includes the
+complete extended Tcl development platform, with the popular Tcl
+extensions [incr Tcl], TclX, and Expect (Unix only) updated for use
+with Tcl/Tk 8.3.
+
+
+2. Documentation
+================
+
+This release of TclPro includes the "TclPro User's Guide" in the PDF
+format.  This file is located in the "doc" directory and named
+"TclProUsersGuide.pdf".  Acrobat Reader 3.0 or later is required to
+view or print these PDF files.  You can download a free copy of Acrobat
+Reader from our Web site:
+
+      http://www.ajubasolutions.com/support/acrobat.html
+
+Windows Help
+------------
+
+Windows distributions of TclPro include Windows help files 
+(located in doc\help).  The TclPro installer has added a TclPro 
+entry in the "Programs" section of your "Start" menu.  The TclPro 
+menu entry contains a shortcut to the Windows help files.
+
+Unix HTML
+---------
+
+Unix distributions of TclPro include man pages for each TclPro 
+component (located in doc/man) as well as Web-based documentation 
+(located in doc/html).
+
+
+3. Running TclPro Tools
+=======================
+
+The following executables are located in the "<platform>/bin"
+directory, where <platform> is one of solaris-sparc, hpux-parisc,
+irix-mips, linux-ix86, or win32-ix86.
+
+    TclPro tool			Unix executables  Windows executables
+    -----------			----------------  -------------------
+    TclPro Checker		procheck	  procheck.exe
+    TclPro Compiler		procomp		  procomp.exe
+    TclPro Debugger		prodebug	  prodebug.exe
+    TclPro Wrapper		prowrap		  prowrap.exe
+    License Manager		prolicense	  prolicense.exe
+       (text-based version)	prolicensetty
+    Tcl Shell 8.3		protclsh83	  protclsh83.exe
+    Wish 8.3			prowish83	  prowish83.exe
+    Expect			expect		  (not supported)
+    Expect and Tk		expectk		  (not supported)
+
+3a. Running TclPro Tools on Windows
+-----------------------------------
+
+The TclPro installer adds a TclPro entry in the "Programs" section of
+your "Start" menu.  The TclPro menu entry contains shortcuts to TclPro
+Debugger, the License Manager, prowish, and protclsh.  TclPro Checker,
+TclPro Compiler, and TclPro Wrapper are command-line applications, so
+they cannot be run from the Start menu.  The TclPro installer adds
+<installDir>/win32-ix86/bin to your PATH environment variable, so you
+can run applications from the command-line by starting any available
+shell (e.g., MS-DOS Command Prompt) and entering the appropriate
+command.  The following is an example of how to use TclPro Checker to
+check a file called "C:\myPrograms\foo.tcl":
+
+	procheck C:\myPrograms\foo.tcl
+
+
+3b. Running TclPro Tools in Unix
+--------------------------------
+
+All of the TclPro applications can be run from any shell (e.g., 
+sh) by typing the full path and executable name on the command 
+line (see section 3 above for the executable names).  To avoid 
+typing the full path of each TclPro tool, we recommend that you 
+add the TclPro bin directory to your PATH environment variable.  
+The following is an example of how to do so in the "sh" shell:
+
+	PATH="/opt/ajuba/TclPro<version>/<platform>/bin:$PATH"
+
+TclPro Debugger and the License Manager program have a graphical user
+interface.  TclPro Checker, TclPro Compiler, and TclPro Wrapper are
+command-line applications.  Once you have modified your PATH variable,
+you can use the following command to invoke TclPro Checker to check
+all files matching the "~/myPrograms/*.tcl" glob pattern:
+
+	procheck ~/myPrograms/*.tcl
+
+
+4. Licensing
+============
+
+A Named User License for TclPro allows one named developer to use 
+TclPro on any of the platforms we support; the license cannot be 
+used by other developers, but it can be used by a single developer
+on all the platforms they use.
+
+When you download TclPro to evaluate it, an evaluation license key
+with a 15-day limit is emailed to you.  When you purchase TclPro, a
+permanent license key is emailed to you and shipped with your TclPro
+CD-ROM distribution.  You may choose to enter the key during the
+TclPro installation or enter the key later by using the License
+Manager.  See the "Running TclPro Tools" section of the README file
+for details on running the License Manager.  Visit our Web site for
+more information on licensing:
+
+	http://www.ajubasolutions.com/tclpro/aboutLicenses.html
+
+TclPro 1.3 or earlier license keys will not work with the 1.4 release.
+However, you can safely install the 1.4 15-day evaluation license key
+without losing your existing key and the ability to use an earlier
+version of TclPro.
+
+With a Named User License, each TclPro developer must obtain and 
+enter a license key.  A Named User License is valid on all 
+supported platforms used by a particular developer.  For example, 
+if a single developer uses several platforms, he or she is 
+permitted to use a single Named User License on all platforms he 
+or she uses. Of course, more than one developer cannot share the 
+same license.
+
+TclPro tools will not work unless a valid license key has been 
+entered, and the evaluation license key is only valid for 15 days 
+from the day you registered for the evaluation.  If you are 
+planning on purchasing TclPro, please do so before the 15 days are 
+up and you can upgrade your 15-day license to a permanent one.
+
+
+5. C/C++ Development on Windows
+===========================
+
+If you are using the Web download of TclPro on Windows, and you 
+wish to do C/C++ program development, you will need the
+tclprodev<version>.zip file.  This file can be downloaded from
+the same location where you downloaded the rest of TclPro.
+
+The tclprodev<version>.zip file is an optional component which 
+contains the libraries and header files necessary for C program 
+development.  You can extract this zip file into the installation
+directory of TclPro.
+
+6. Supported Operating Systems and Tcl/Tk Versions
+==================================================
+
+TclPro 1.4 is supported on the following operating systems:
+
+  Operating System	Architecture	Version
+  ----------------      ------------    -------
+  Irix			SGI (Mips)	6.3+
+  HP-UX			HP (PARISC)	10.20+
+  Linux			Intel		Red Hat 5.0+ or SuSE 6.0+ *
+  Solaris		Sun (Sparc)	2.5+
+  Windows		Intel		95/98/NT 4.0/2000
+
+* Note -- Ajuba believes that TclPro will work with other 
+  Linux distributions, such as Caldera Linux, that use glibc2. 
+  However, Ajuba does not support these other Linux operating 
+  systems at this time.
+
+TclPro 1.4 is designed primarily for Tcl/Tk version 8.3.  Some of the
+TclPro tools support earlier Tcl/Tk versions as well, as described in
+this section.
+
+TclPro Debugger
+---------------
+
+Under Unix, TclPro Debugger can also be used with Tcl 7.6 and Tk 4.2 and later 
+versions.  However, Ajuba's support for Tcl 7.6 and Tk 4.2 covers only 
+problems in TclPro Debugger and not problems in Tcl 7.6 or Tk 4.2.
+
+In many cases TclPro Debugger can also be used under Unix with Tcl 7.5
+and Tk 4.1;  it can also be used in some cases under NT with Tcl 7.6
+and Tk 4.2.  However, there are known bugs in the socket implementation
+under these older versions of Tcl (fixed in later versions) that may affect
+the operation of TclPro Debugger, so Ajuba does not support these
+older versions.
+
+TclPro Debugger supports custom Tcl interpreters as long as they are
+based on supported Tcl/Tk versions and no standard Tcl commands are
+radically redefined.  An example of radical redefinition of the "proc"
+command would be to redefine it to take four arguments instead of
+three.  In particular, avoid altering the following Tcl commands:
+
+	array break catch cd close concat continue eof error eval
+	exit expr fconfigure file fileevent flush for foreach gets
+	global if incr info lappend lindex linsert list llength
+	lrange lreplace lsearch namespace open proc puts pwd read
+	regexp regsub rename return set string switch trace unset
+	uplevel upvar variable vwait while
+
+Using the remote debugging facility, it is possible to use TclPro
+Debugger to test applications running on platforms other than those
+listed above.  TclPro Debugger must run on a supported platform, but
+it can communicate with, and debug, applications running on
+unsupported platforms.  However, Ajuba cannot provide help in
+fixing problems related to unsupported platforms.
+
+TclPro Checker
+--------------
+
+TclPro Checker may be used on older releases of Tcl and Tk back through
+Tcl 7.3 and Tk 3.6.
+
+TclPro Compiler
+---------------
+
+TclPro Compiler now generates bytecode files in version 1.3 format
+(to support Tcl 8.1 and later).  These new bytecode files require version
+1.3 of the tbcload package.  TclPro Compiler can also compile
+Tcl 8.0 scripts (the output is still a version 1.3 bytecode file).
+
+The new 1.3 version of the bytecode file interpreter package supports
+the following bytecode file formats:
+
+ * 1.3   (generated by TclPro Compiler 1.3 and 1.4)
+ * 1.0.1 (generated by TclPro Compiler 1.2)
+
+The tbcload 1.3 package does *not* support version 1.0 bytecode files
+(generated by TclPro Compiler 1.0).
+
+
+7. Support and bug fixes
+========================
+
+A list of known bugs in TclPro can be found at
+
+    http://www.ajubasolutions.com/support/knownbugs.html
+
+A list of frequently asked questions (FAQ) can be found at
+
+    http://www.ajubasolutions.com/support/faq.html
+
+We're very interested in receiving your comments, including bug 
+reports and requests for enhancements.  We prefer that you report 
+bugs and feature enhancement requests by filling in the form at
+
+    http://www.ajubasolutions.com/support/bugForm.html
+
+If you were unable to complete installation of TclPro, please 
+check the INSTALL.LOG file in the target installation directory, 
+and use our Web form to report the problem (you can paste the 
+INSTALL.LOG file into your report).
+
+
+8. Contact Info
+===============
+If you have any questions or comments, please contact:
+
+    sales@ajubasolutions.com
+
+	   or
+
+    support@ajubasolutions.com
+
+Thank you very much for working with Ajuba Solutions and TclPro!
+
+Sincerely,
+The Ajuba Solutions Team
+
+2593 Coast Ave.
+Mountain View,  CA 94043
+Phone: 650-210-0100
+URL: http://www.ajubasolutions.com/
+

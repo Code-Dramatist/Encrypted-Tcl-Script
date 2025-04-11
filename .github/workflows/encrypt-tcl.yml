@@ -38,12 +38,12 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install -y wget tar gzip tcl expect libx11-6 libxss1 libxt6 libxmu6 libxft2 libxext6 libxrender1 libfontconfig1 libxpm4 libsm6 libice6
+          DEBIAN_FRONTEND=noninteractive apt-get install -y tcl expect libx11-6 libxss1 libxt6 libxmu6 libxft2 libxext6 libxrender1 libfontconfig1 libxpm4 libsm6 libice6
 
-          # Download TclPro from SourceForge
-          mkdir -p /tmp/tclpro
-          wget -O /tmp/tclpro.tar.gz "https://sourceforge.net/projects/tclpro/files/TclPro-1.4.1/1.4.1/tclpro141.linux.tar.gz/download"
-          tar -xzf /tmp/tclpro.tar.gz -C /tmp/tclpro
+          # 使用工程目录中的 TclPro
+          echo "\n\n===== 使用工程目录中的 TclPro ====="
+          ls -la ./tclpro1.4
+          ls -la ./tclpro1.4/unix
 
           # 创建自动安装脚本
           cat > /tmp/tclpro_install.exp << 'EOF'
@@ -59,7 +59,7 @@ jobs:
           expect eof
 
           # 启动安装程序
-          spawn /tmp/tclpro/tclpro1.4/setup.sh
+          spawn ./tclpro1.4/setup.sh -Text
 
           # 处理可能的错误或提示
           expect {
@@ -102,11 +102,32 @@ jobs:
           echo "\n\n===== TclPro 安装目录结构 ====="
           ls -la /opt/tclpro1.4
 
-          echo "\n\n===== TclPro bin 目录内容 ====="
-          ls -la $TCLPRO_HOME/bin
+          # 检查 TclPro 安装目录
+          echo "\n\n===== 检查 TclPro 安装目录 ====="
+          find /opt/tclpro1.4 -type d | sort
 
-          echo "\n\n===== procomp 工具信息 ====="
-          file $TCLPRO_HOME/bin/procomp
+          # 检查 bin 目录
+          echo "\n\n===== 检查 bin 目录 ====="
+          find /opt/tclpro1.4 -name "bin" -type d | sort
+
+          # 列出 bin 目录中的文件
+          echo "\n\n===== 列出 bin 目录中的文件 ====="
+          find /opt/tclpro1.4 -path "*/bin/*" -type f | sort
+
+          # 查找 procomp 工具
+          echo "\n\n===== 查找 procomp 工具 ====="
+          PROCOMP_PATH=$(find /opt/tclpro1.4 -name "procomp" -type f | head -1)
+
+          if [ -n "$PROCOMP_PATH" ]; then
+            echo "找到 procomp: $PROCOMP_PATH"
+            ls -la "$PROCOMP_PATH"
+            file "$PROCOMP_PATH"
+          else
+            echo "错误: 无法找到 procomp 工具。TclPro 安装可能不完整。"
+            echo "尝试在整个系统中查找 procomp:"
+            find / -name "procomp" -type f 2>/dev/null || echo "找不到 procomp"
+            exit 1
+          fi
 
           echo "\n\n===== 环境变量 ====="
           echo "TCLPRO_HOME=$TCLPRO_HOME"
@@ -123,9 +144,11 @@ jobs:
           export TCLPRO_HOME=/opt/tclpro1.4
           export PATH=$TCLPRO_HOME/bin:$PATH
 
-          if [ -f "$TCLPRO_HOME/bin/procomp" ]; then
-            echo "procomp 工具存在于 $TCLPRO_HOME/bin/procomp"
-            ls -la $TCLPRO_HOME/bin/procomp
+          # 使用之前找到的 procomp 路径
+          if [ -n "$PROCOMP_PATH" ] && [ -f "$PROCOMP_PATH" ]; then
+            echo "procomp 工具存在于 $PROCOMP_PATH"
+            ls -la "$PROCOMP_PATH"
+            file "$PROCOMP_PATH"
           else
             echo "\n\n错误: procomp 工具不存在!"
             echo "列出 /opt 目录内容:"
@@ -167,8 +190,8 @@ jobs:
             mkdir -p "output/$rel_path"
 
             # Encrypt the Tcl file to TBC format using TclPro's procomp
-            echo "执行加密命令: $TCLPRO_HOME/bin/procomp $tcl_file -o output/$rel_path/$filename.tbc"
-            $TCLPRO_HOME/bin/procomp "$tcl_file" -o "output/$rel_path/$filename.tbc"
+            echo "执行加密命令: $PROCOMP_PATH $tcl_file -o output/$rel_path/$filename.tbc"
+            "$PROCOMP_PATH" "$tcl_file" -o "output/$rel_path/$filename.tbc"
 
             # 检查加密结果
             if [ -f "output/$rel_path/$filename.tbc" ]; then

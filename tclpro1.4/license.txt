@@ -1,0 +1,596 @@
+AJUBA SOLUTIONS 
+TCLPRO SOFTWARE LICENSE AGREEMENT
+
+BY CLICKING ON THE ?ACCEPT BUTTON,? INSTALLING, OR OTHERWISE USING THE TCLPRO SOFTWARE (AS 
+DEFINED BELOW), OR BY OPENING THIS PACKAGE, YOU (THE INDIVIDUAL INSTALLING THE TCLPRO SOFTWARE 
+AND ANY LEGAL ENTITY ON WHOSE BEHALF YOU ARE ACTING AND ANY USER OR LICENSEE OF THIS TCLPRO 
+SOFTWARE) (?YOU?) AGREE TO BE BOUND BY THE TERMS OF THIS AGREEMENT (?AGREEMENT?) AND 
+REPRESENT AND WARRANT THAT YOU HAVE THE AUTHORITY TO BIND THE LICENSEE OF THIS TCLPRO 
+SOFTWARE AND SUCH LICENSEE IS CONSENTING TO BE BOUND BY, AND IS BECOMING A PARTY TO THIS 
+AGREEMENT.  
+
+IF YOU DO NOT AGREE WITH SUCH TERMS, YOU SHALL NOT USE OR ACCESS IN ANY MANNER THE TCLPRO 
+SOFTWARE, AND YOU SHALL (A) RETURN THIS TCLPRO SOFTWARE (WITH THE ENVELOPE STILL SEALED), ALL 
+DOCUMENTATION, AND PROOF OF PAYMENT, TO THE PLACE YOU OBTAINED THEM FOR A FULL REFUND WITHIN 
+30 DAYS OF FIRST ACQUIRING THIS TCLPRO SOFTWARE OR (B) CLICK THE ?CANCEL? BUTTON AND THE 
+INSTALLATION PROCESS WILL NOT CONTINUE.  
+
+WRITTEN APPROVAL IS NOT A PREREQUISITE TO THE VALIDITY OR ENFORCEABILITY OF THIS AGREEMENT.  IF 
+YOU HAVE ORDERED THIS TCLPRO SOFTWARE, ACCEPTANCE BY AJUBA SOLUTIONS (?AJUBA?) IS 
+EXPRESSLY CONDITIONAL ON YOUR ASSENT TO THESE TERMS TO THE EXCLUSION OF ALL OTHER TERMS 
+(EXCEPT NON-PREPRINTED QUANTITY, PRICE, PAYMENT AND LICENSE RESTRICTION TERMS); IF THESE TERMS 
+ARE CONSIDERED AN OFFER BY AJUBA, ACCEPTANCE IS EXPRESSLY LIMITED TO THESE TERMS.  THERE 
+SHALL BE NO FORCE OR EFFECT TO ANY DIFFERENT TERMS OF ANY RELATED PURCHASE ORDER OR SIMILAR 
+FORM PROVIDED BY YOU EVEN IF SIGNED BY THE PARTIES AFTER THE DATE HEREOF.  YOU ARE RESPONSIBLE 
+FOR ALL TAXES RELATING TO TCLPRO SOFTWARE.  
+
+1. Definitions
+(a) ?Developer? means either: (i) you, or (ii) your employee 
+or designated agent who is authorized by Ajuba to use the 
+TclPro Software.  
+(b) ?Authorized Number? means the number of licenses that 
+you paid for and that Ajuba has authorized.  
+(c) ?TclPro Software? means the TclPro Tools, TclPro 
+Open Source and Free Binaries and any related documentation 
+provided by Ajuba.  
+(d) ?TclPro Tools? means the TclPro tools and associated 
+files in object code form.  
+(e) ?TclPro Open Source? means the Tcl and Tk core 
+libraries, and TclX, Expect, incr Tcl, incr Tk, and incr Widget. 
+(f) ?TclPro Open Source License Agreement? means the 
+agreement as set forth in Exhibit A of this Agreement.
+(g) ?Free Binaries? means the protclsh, prowish, tbcload, 
+lipwrapper in object code form.  
+2. License 
+(a) Subject to the terms and conditions of this Agreement, 
+Ajuba grants you a limited, nonexclusive, nonsublicensable, 
+nontransferable license (?License?) under Ajuba? intellectual 
+property rights to: (i) install and use the TclPro Software only 
+for your internal business purposes, only in accordance with the 
+applicable user documentation provided by Ajuba and subject 
+to either Section 2(a) or 2(b) below, as applicable and (ii) 
+distribute only the Free Binaries in object code form provided 
+that you comply with Section 2(e) of this Agreement and all the 
+other terms and conditions herein.        
+(b) If you purchased a Shared Network License, then the 
+terms of this Section 2(b) shall also apply.  You shall allow no 
+more than the number of Developers up to the Authorized 
+Number to concurrently use the TclPro Software.  
+(c) If you purchased a Named User License, then the terms 
+of this Section 2(c) shall also apply.  ?Your Named User? shall 
+mean your employee or agent whom you have designated as the 
+sole user of the TclPro Software.  At the time that you install 
+this TclPro Software, you shall designate and identify an 
+employee or agent of yours as Your Named User.  The License 
+is granted only to Your Named User, and no License or rights 
+under this Agreement is granted to any persons or entities other 
+than Your Named User.  You may not designate a different 
+person as Your Named User unless Your Named User no longer 
+works for you or Your Named User?s work responsibilities 
+materially change.  You shall ensure that the TclPro Software 
+shall be used directly or indirectly only by Your Named User.  
+(d) If you have not paid for this copy of the TclPro Software 
+by purchasing either a Named User License or a Shared 
+Network License, then the terms under this Section 2(d) shall 
+also apply and this Section 2(d) limits the License and does not 
+change or supersede any term of the Agreement except to the 
+extent unambiguously inconsistent therewith.  The TclPro 
+Software is provided only for, and the License is granted only 
+for your internal evaluation of the TclPro Software and not for 
+any productive or commercial use or distribution.  You will 
+make no other use of the TclPro Software or any part thereof, 
+whether or not incorporated into or with any other software.  For 
+the avoidance of doubt, you shall not distribute files that have 
+been compiled with TclPro Compiler or files that have been 
+wrapped with TclPro Wrapper.  Unless earlier terminated as 
+provided in the Agreement, this Agreement, the License and all 
+your rights hereunder will terminate fifteen (15) days from the 
+date Ajuba issued your license key.  In addition to 
+termination and any other remedies Ajuba may have or 
+exercise, if you breach any of the terms of this Agreement, you 
+shall promptly pay Ajuba the applicable list price or fee for 
+each unauthorized use of the TclPro Software.  WARNING: 
+THE EVALUATION COPY OF THE TCLPRO SOFTWARE 
+CONTAINS A ROUTINE THAT WILL CAUSE THE 
+TCLPRO SOFTWARE OR A PORTION THEREOF TO 
+CEASE PROPER FUNCTIONING AFTER A CERTAIN 
+PERIOD OF TIME. THIS MAY OCCUR BEFORE OR 
+AFTER TERMINATION OF THE LICENSE, SO YOU MUST 
+BE PREPARED AT ALL TIMES AND MAY NOT RELY ON 
+THE TCLPRO SOFTWARE.  NOTWITHSTANDING 
+ANYTHING TO THE CONTRARY, TCLPRO SOFTWARE IS 
+PROVIDED ?AS IS? AND AJUBA PROVIDES NO 
+WARRANTY WHATSOEVER, EXPRESS OR IMPLIED, 
+WITH RESPECT TO THE TCLPRO SOFTWARE OR THE 
+USE OR FUNCTIONING THEREOF (INCLUDING 
+WITHOUT LIMITATION WARRANTIES OF 
+MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+PURPOSE AND NON-INFRINGEMENT) AND WILL HAVE 
+NO LIABILITY WHATSOEVER IN CONNECTION WITH 
+THE TCLPRO SOFTWARE OR THE USE OR 
+FUNCTIONING THEREOF OR LOSS OF DATA 
+RESULTING THEREFROM.    
+(e) Notwithstanding anything to the contrary, if you have 
+not paid for this copy of the TclPro Software by purchasing 
+either a Named User License or a Shared Network License, you 
+shall not have any rights under this Section 2(e) and it shall not 
+apply to you.  If you distribute the Free Binaries, you shall: (i) 
+distribute the Free Binaries in unmodified form only and only 
+integrally incorporated into and for use only with your software 
+product which adds significant and primary functionality to the 
+Free Binaries; (ii) not use Ajuba? name, logo or trademarks or 
+anything related to Ajuba to market such software product 
+without the prior written consent of Ajuba; (iii) include 
+Ajuba? copyright and other proprietary notices on such 
+software product; (iv) indemnify, hold harmless and defend 
+Ajuba and its officers, directors, shareholders, agents and 
+employees from all damages, settlements, attorneys? fees and 
+expenses related to the use or distribution of such software 
+product and/or the Free Binaries; (v) distribute such software 
+product incorporating Free Binaries only (1) pursuant to an 
+enforceable written agreement (?End User Agreement?) for 
+Ajuba? benefit signed by the end user that is at least as 
+protective of Ajuba and its rights as this Agreement or a 
+written shrink-wrap or ?click-on? version of the foregoing 
+(where enforceable), the terms of which shall include, but are 
+not limited to, provisions prohibiting (aa) reverse engineering, 
+decompilation or disassembly; (bb) distribution of the Free 
+Binaries by your end user; and (cc) use of the Free Binaries 
+other than with such software product, and (2) in jurisdictions 
+where the terms of this Agreement and the terms and form of 
+the End User Agreement are enforceable.  Upon Ajuba? 
+request, you shall provide a copy of the form of such End User 
+Agreement, and shall make any changes to such End User 
+Agreement as reasonable requested by Ajuba.  You agree not 
+to rent or lease the Free Binaries.  You agree not to use the Free 
+Binaries for any third party on a service basis.  You may use 
+subdistributors to distribute the Free Binaries incorporated into 
+your software product as provided above only, provided that any 
+such subdistributor shall be bound by an enforceable writing for 
+Ajuba? benefit to all the limitations and restrictions of this 
+Agreement.  For the avoidance of doubt, except for your 
+software product as provided above, such subdistributors shall 
+not distribute the Free Binaries with anything else, including but 
+not limited to such subdistributors? product.  Notwithstanding 
+anything to the contrary, such subdistributors shall make such 
+distributions only as provided herein and shall not obtain any 
+other rights under this Agreement and shall not use the TclPro 
+Software in any manner.  
+3. Open Source Items
+(a) Subject to the terms and conditions of this Agreement, 
+you shall use TclPro Open Source only as expressly and 
+unambiguously provided in the TclPro Open Source License 
+Agreement.  Notwithstanding anything to the contrary, with 
+respect to TclPro Open Source, this Agreement does not 
+supersede or change any term of the TclPro Open Source 
+License Agreement and does not provide any additional rights 
+with respect to TclPro Open Source. 
+(b) Upon any termination of this Agreement, you may 
+continue to use the TclPro Open Source, only as expressly and 
+unambiguously provided in and subject to the TclPro Open 
+Source License Agreement.  
+4. Audit
+You covenant, represent, and warrant to maintain complete and 
+accurate records, and will permit Ajuba agents, 
+upon request, to examine, copy, and audit all related 
+records.
+5. Your Other Rights and Responsibilities
+(a) You represent, warrant, and covenant that you will not 
+and will not allow a third party to, directly or indirectly: (i) 
+reverse engineer, decompile, disassemble or otherwise attempt 
+to discover, derive, analyze or use the source code, or 
+underlying structure, ideas or algorithms of the TclPro Software 
+or of any files contained in or generated using the TclPro 
+Software by any means whatsoever, except and only to the 
+minimal extent the provisions of this Section 5(a) are expressly 
+prohibited by applicable statutory law; (ii) modify, create 
+derivative works based on, or translate the TclPro Software 
+(except as expressly and unambiguously authorized under 
+Section 2(e) of this Agreement); (iii) rent, lease, sell, distribute, 
+pledge, assign, or otherwise transfer or encumber rights to the 
+TclPro Software (except as expressly and unambiguously 
+provided in Section 2(e) of this Agreement); (iv) provide, lease, 
+lend, use for timesharing or service bureau purposes or 
+otherwise use or allow others to use the TclPro Software to or 
+for the benefit of third parties; (v) incorporate into or with other 
+software any part of the TclPro Software (except as expressly 
+and unambiguously provided in Section 2(e) of this Agreement); 
+(vi) except if, as and to the extent expressly authorized by 
+Ajuba, transmit or use the TclPro Software over a network; 
+(vii) remove any proprietary or other notices or labels; or (viii) 
+otherwise use or register (or make any filing with respect to) any 
+trademark, name or other designation relevant to the subject 
+matter of this Agreement anywhere in the world and you will 
+not contest anywhere in the world the use by or authorized by 
+Ajuba of any trademark, name or other designation or 
+application or registration therefor, whether during or after the 
+term of this Agreement.  
+(b) You agree to hold in confidence and not disclose (except 
+for the Free Binaries as unambiguously and expressly provided 
+herein), and not use (except as expressly and unambiguously 
+provided herein) the TclPro Software or related technology, 
+idea, algorithm or information (collectively, ?Proprietary 
+Information?) and to ensure that there is no breach, compromise 
+or violation, by your employees, consultants, or independent 
+contractors, of such confidentiality obligations and Ajuba? 
+rights and title to the TclPro Software and Proprietary 
+Information.   
+(c) You represent, covenant, and warrant that: (1) you will 
+and your subdistributors will comply with all applicable laws; 
+and (2) neither this Agreement (or any term hereof) nor the 
+performance of or exercise of rights under this Agreement, is 
+restricted by, contrary to, in conflict with, ineffective under, 
+requires registration or approval or tax withholding under, or 
+affects Ajuba? proprietary rights (or the duration thereof) 
+under, or will require any termination payment or compulsory 
+licensing under, any law or regulation of any organization, 
+country, group of countries or political or governmental entity 
+located within or including all or a portion of the territory where 
+you will use the TclPro Software, distribute the Free Binaries as 
+provided in Section 2(e) of this Agreement or otherwise benefit 
+from this Agreement.
+(d) The TclPro Software is licensed as a single product, and 
+the software programs comprising the TclPro Software may not 
+be separated in any manner whatsoever and shall only be used 
+altogether, as one product.  
+(e) You agree to keep Ajuba informed as to any problems 
+encountered with the TclPro Software and any resolutions 
+arrived at for those problems, and to communicate promptly to 
+Ajuba any and all modifications, design changes or 
+improvements of the TclPro Software suggested by any 
+customer, employee or agent. You further agrees (i) that 
+Ajuba shall have and is hereby assigned any and all right, 
+title, and interest in and to any such suggested modifications, 
+design changes, or improvements of the TclPro Software, 
+without the payment of any additional consideration therefor 
+either to you, or its employees, agents or customers and (ii) that 
+you will fully cooperate with Ajuba in this regard. 
+(f) You agree that there is no adequate remedy at law for a 
+violation of this Agreement or Ajuba? rights in the TclPro 
+Software, that such violation would irreparably harm Ajuba 
+for which monetary damages would not be an adequate remedy 
+and that, without the requirement of posting a bond, Ajuba is 
+entitled to equitable relief (including, without limitation, 
+injunctions) with respect to any such violation or potential 
+violation in addition to any other remedies.  
+6. Technical Support
+If you have not paid for this copy of the TclPro Software by 
+purchasing either a Named User License or a Shared Network 
+License, you shall not have any rights under this Section 6 and it 
+shall not apply to you.  During Ajuba? normal business hours, 
+Monday to Friday, 8:30am to 5:00pm Pacific Standard Time 
+(excluding any holidays), Ajuba will endeavor to provide you 
+email support only on installing the TclPro Software, for 30 
+days from your receipt of your software key at no charge.  If 
+you want to purchase additional support, several support options 
+are available as described on the Ajuba web site at 
+http://www.ajubasolutions.com.  No obligation of Ajuba under such 
+a document shall survive termination of the License granted 
+hereunder.
+7. Ajuba? Rights
+(a) All TclPro Software is licensed and not sold; any 
+references herein to the sale or purchase or price of any software 
+products or any copy thereof (including but limited to TclPro 
+Software) refers to the license or license fee thereof.  
+Notwithstanding anything to the contrary, you have no right to 
+receive, use or examine any source code or design 
+documentation relating to TclPro Software.  
+(b) As between the parties, except as expressly and 
+unambiguously licensed herein, Ajuba retains all right, title 
+and interest in the TclPro Software and in all copies, 
+modifications, and derivative works thereto, including, without 
+limitation, all proprietary and/or intellectual property rights 
+(except proper combinations made by you of the Free Binaries 
+with your software product as expressly and unambiguously 
+authorized under Section 2(e) of this Agreement).  
+(c) Notwithstanding anything else, as between the parties, 
+Ajuba and its licensors retain: all of their service marks, 
+trademarks, tradenames or any other designations (and 
+notwithstanding anything else herein, you may not use any 
+name, mark or designation used by Ajuba or its licensors 
+except reproduction of trademarks as expressly and 
+unambiguously set forth in Section 2(e) of this Agreement as 
+part of authorized distribution of Free Binaries; provided that 
+any such reproduction and distribution is subject to reasonable 
+quality control inspections and approval of Ajuba.
+8. Termination
+(a) The License under this Agreement shall remain in effect 
+perpetually unless terminated as provided in this Section 8.  This 
+Agreement (including but not limited to all services provided 
+hereunder) and the License shall terminate immediately without 
+notice if you breach any portion of this Agreement.  You may 
+terminate this License at any time.  
+(b) Upon any termination, all of your rights hereunder and 
+restrictions on Ajuba and the License shall terminate, and you 
+shall immediately: cease indirectly or directly distributing any 
+Free Binaries, discontinue use of the TclPro Software and 
+Proprietary Information and return or destroy all copies of the 
+TclPro Software and Proprietary Information or portions thereof 
+in your possession, custody or control in whichever form held 
+(including all copies or embodiments thereof, whether or not 
+modified or incorporated with or into other software) and will 
+cease using any trademarks, service marks and other 
+designations of Ajuba.  Except as expressly and 
+unambiguously provided herein, Sections 3(b), 4, 5(a), 5(b), 
+5(c), 5(f), 7(b), 7(c), 8(b), 8(c), 9, 10, 11 and 13 shall survive 
+any termination of this Agreement.  
+(c) Termination is not the sole remedy under this 
+Agreement and, whether or not termination is effected, all other 
+remedies will remain available.  Each party understands that the 
+rights of termination hereunder are absolute. Ajuba shall not 
+incur any liability or compensation obligation whatsoever for 
+any damage (including, without limitation, damage to or loss of 
+goodwill or investment), loss or expenses of any kind suffered 
+or incurred by you (or for any compensation to you) arising 
+from or incident to any termination of this Agreement by 
+Ajuba that complies with the terms of the Agreement whether 
+or not Ajuba is aware of any such damage, loss or expenses.  
+9. Export Controls
+You shall comply with, and shall, at Ajuba? request, 
+demonstrate such compliance with, the U.S. Foreign Corrupt 
+Practices Act and all applicable export laws, restrictions, and 
+regulations of the U.S. Department of Commerce, the U.S. 
+Department of Treasury and other U.S. and foreign agency or 
+authority and you shall not to export or re-export, or allow the 
+export or re-export of any product, technology or information 
+you obtain or learn pursuant to this Agreement (or any direct 
+product thereof) in violation of any such laws, restrictions or 
+regulations.  
+10. Warranty Disclaimer.
+NOTWITHSTANDING ANYTHING TO THE CONTRARY, 
+TCLPRO SOFTWARE, PROPRIETARY INFORMATION, 
+AND ANYTHING PROVIDED HEREUNDER (INCLUDING 
+BUT NOT LIMITED TO SUPPORT SERVICES OR 
+PRODUCT MAINTENANCE OR NEW RELEASES) ARE 
+PROVIDED ?AS IS? WITHOUT WARRANTY OF ANY 
+KIND AND AJUBA MAKES NO WARRANTIES 
+WHATSOEVER EXPRESS OR IMPLIED, WITH RESPECT 
+TO THE TCLPRO SOFTWARE, PROPRIETARY 
+INFORMATION OR ANYTHING PROVIDED HEREUNDER 
+OR THE USE OR FUNCTIONING THEREOF, AND 
+EXPRESSLY DISCLAIMS ALL WARRANTIES OF ANY 
+KIND, INCLUDING WITHOUT LIMITATION, 
+WARRANTIES OF MERCHANTABILITY, NON-
+INFRINGEMENT, FITNESS FOR A PARTICULAR 
+PURPOSE, FREEDOM FROM BUGS, CORRECTNESS, 
+ACCURACY, RELIABILITY, AND REGARDING THE USE 
+AND RESULTS OF THE USE, AND THAT THE TCLPRO 
+SOFTWARE?S USE WILL BE UNINTERRUPTED.  SOME 
+STATES DO NOT ALLOW LIMITATIONS ON HOW LONG 
+AN IMPLIED WARRANTY LASTS, SO THE ABOVE 
+LIMITATIONS MAY NOT APPLY TO YOU.  WITH 
+RESPECT TO ANY TCLPRO SOFTWARE, YOU BEAR THE 
+ENTIRE RISK AS TO QUALITY AND PERFORMANCE 
+AND SHOULD SUCH SOFTWARE PROVE DEFECTIVE 
+FOLLOWING LICENSE, YOU (AND NOT AJUBA OR 
+ANY DISTRIBUTOR OR RETAILER) ASSUME THE 
+ENTIRE COST OF ALL NECESSARY SERVICING OR 
+REPAIR.  
+11. Limitation of Liability
+NOTWITHSTANDING ANYTHING ELSE IN THIS 
+AGREEMENT OR OTHERWISE, AJUBA SHALL NOT 
+BE RESPONSIBLE OR LIABLE WITH RESPECT TO ANY 
+SUBJECT MATTER OF THIS AGREEMENT OR TERMS 
+AND CONDITIONS RELATED THERETO UNDER ANY 
+NEGLIGENCE, CONTRACT, STRICT LIABILITY OR 
+OTHER LEGAL OR EQUITABLE THEORY: (A) FOR 
+ERROR OR INTERRUPTION OF USE OR FOR LOSS OR 
+INACCURACY OR CORRUPTION OF DATA OR COST OF 
+PROCUREMENT OF SUBSTITUTE GOODS, SERVICES OR 
+TECHNOLOGY OR FOR RELOCATION EXPENSES OR 
+LOSS OF BUSINESS; (B) FOR ANY INDIRECT, 
+EXEMPLARY, INCIDENTAL, SPECIAL OR 
+CONSEQUENTIAL DAMAGES, INCLUDING, BUT NOT 
+LIMITED TO, LOSS OF PROFITS; OR (C) FOR ANY 
+MATTER BEYOND AJUBA? REASONABLE 
+CONTROL, EVEN IF AJUBA HAS BEEN ADVISED OF 
+THE POSSIBILITY OF SUCH LOSS OR DAMAGE.  
+WITHOUT LIMITING THE FOREGOING, AJUBA? 
+LIABILITY FOR DAMAGES FROM ANY CAUSE OF 
+ACTION WHATSOEVER RELATING TO THIS 
+AGREEMENT SHALL BE LIMITED TO THE AMOUNT 
+YOU PAID FOR THE TCLPRO SOFTWARE DURING THE 
+TWELVE MONTH PERIOD PRIOR TO THE DATE THE 
+CAUSE OF ACTION AROSE.  THIS SECTION DOES NOT 
+LIMIT LIABILITY FOR BODILY INJURY OF A PERSON.  
+EXCEPT FOR BODILY INJURY OF A PERSON, 
+AJUBA? LIABILITY FOR DAMAGES FROM ANY 
+CAUSE OF ACTION WHATSOEVER RELATING TO 
+AJUBA? AGREEMENT TO PROVIDE PRODUCT 
+MAINTENANCE UNDER SECTION 12 OF THIS 
+AGREEMENT SHALL BE LIMITED TO THE AMOUNT 
+PAID BY YOU FOR THE PRODUCT MAINTENANCE FOR 
+THE APPLICABLE YEAR.  THESE LIMITATIONS SHALL 
+APPLY NOTWITHSTANDING THE FAILURE OF THE 
+ESSENTIAL PURPOSE OF ANY LIMITED REMEDY.  
+SOME STATES DO NOT ALLOW THE EXCLUSION OR 
+LIMITATION OF INCIDENTAL OR CONSEQUENTIAL 
+DAMAGES, SO THE ABOVE LIMITATION AND 
+EXCLUSIONS MAY NOT APPLY TO YOU.  IN NO EVENT 
+WILL AJUBA BE LIABLE FOR ANY CLAIM AGAINST 
+YOU BY A THIRD PARTY ARISING OUT OF OR 
+RELATING TO THIS AGREEMENT.    
+12. Product Maintenance
+(a) Subject to your payment of the applicable product 
+maintenance fees and subject to the terms and conditions of this 
+Agreement, during the first year after such payment only, 
+Ajuba shall use reasonable efforts to provide to only you New 
+Releases (as defined below) on only the then-current release of 
+the TclPro Software.  This Section 12 and all of your rights 
+under this Section 12, including but not limited to any rights to 
+New Releases, shall terminate at the end of one year from the 
+date of such payment or at the termination of the License, 
+whichever occurs earlier.  ?New Releases? means one copy of 
+revisions to the machine readable TclPro Software that are not 
+designated by Ajuba as products for which it charges a 
+separate fee and which Ajuba in its discretion makes 
+generally available.  New Releases provided by Ajuba to you 
+shall be added to TclPro Software.  All New Releases provided 
+to you shall be governed by the terms of the License and this 
+Agreement.  New Releases will be made available to you only 
+over the Internet through a download from Ajuba? web site.  
+(b) You may submit Error Reports (as defined below) to 
+Ajuba via email to bugs@ajubasolutions.com.  Ajuba has no 
+obligation to respond to or correct any such errors or problems 
+reported or any other errors or problems.  If Ajuba in its 
+discretion implements a fix for the problems in your Error 
+Report, Ajuba will use reasonable efforts to make such fix 
+available to you as a part of a New Release.  ?Error Report? 
+means a written request identifying a reproducible issue or 
+problem that you encountered with the TclPro Software, where 
+such written request describes such issue or problem in 
+sufficient detail for Ajuba to identify, understand, and 
+independently reproduce on Ajuba? premises such problem or 
+issue, in a manner satisfactory to Ajuba.  You shall attach all 
+applicable computer-readable files to such Error Report if 
+applicable.
+(c) Ajuba shall have no obligation to support: (1) altered, 
+modified or damaged TclPro Software or any portion of the 
+TclPro Software incorporated with or into other software; (2) 
+TclPro Software that is not the then-current release; (3) TclPro 
+Software problems caused by your negligence, abuse or 
+misapplication, or by other factors beyond the control of 
+Ajuba. Ajuba shall have no liability for any changes in 
+your hardware that may be necessary to use TclPro Software 
+due to a New Release.
+13. Miscellaneous
+(a) Entire Agreement; Waiver; Headings.  This Agreement 
+constitutes the entire Agreement between the parties pertaining 
+to the TclPro Software, and supersedes any and all previous 
+contemporaneous oral or written agreements regarding the 
+subject matter of this Agreement and all past dealing or industry 
+custom.  Waivers and amendments shall be effective only if 
+made by non-pre-printed agreements clearly understood by both 
+parties to be an amendment or waiver.  All waivers and 
+modifications of this Agreement must be in a writing signed by 
+both parties.  No waiver of any breach of any provision of this 
+Agreement shall constitute a waiver of any prior, concurrent or 
+subsequent breach of the same or any other provisions hereof.  
+Headings and captions are for convenience only and are not to 
+be used in the interpretation of this Agreement.
+(b) Governing Law and Legal Actions.  This Agreement 
+shall be governed by and construed under the laws of the State 
+of California and the United States without regard to conflicts of 
+laws provisions thereof and without regard to the United 
+Nations Convention on Contracts for the International Sale of 
+Goods.  The sole and exclusive jurisdiction and venue for 
+actions related to the subject matter hereof shall be the state and 
+U.S. federal courts in San Francisco, California.  If any action or 
+proceeding to enforce rights under with Agreement, the 
+prevailing party shall be entitled to recover costs and attorney?s 
+fees.
+(c) Severability.  If any provision of this Agreement is held 
+to be illegal or unenforceable, that provision shall be limited or 
+eliminated to the minimum extent necessary so that this 
+Agreement shall otherwise remain in full force and effect and 
+enforceable.    
+(d) Notice.  Any notice, report, approval or consent required 
+or permitted hereunder shall be in writing and will be deemed to 
+have been duly given if delivered personnel or mailed by 
+first-class, registered or certified U.S. mail, postage prepaid to 
+the respective addresses of the parties for notices as set forth in 
+the product order (if any) or TclPro Software (or such other 
+address as a party may designate by 10 days? notice) and 
+marked ?Attention:  Legal.?  
+(e) Relationship.  The parties hereto expressly understand 
+and agree that you are an independent contractor in the 
+performance of each and every part of this Agreement, are 
+solely responsible for all of your employees and agents and your 
+labor costs and expenses arising in connection therewith and are 
+responsible for and will indemnify Ajuba from any and all 
+claims, liabilities, damages, debts, settlements, costs, attorneys? 
+fees, expenses and liabilities of any type whatsoever that may 
+arise on account of your activities, or those of your employees 
+or agents (including, without limitation, direct and indirect 
+subdistributors), including without limitation, providing 
+unauthorized representations or warranties (or failing to 
+effectively disclaim all warranties and liabilities on behalf of 
+Ajuba) to your customers or breaching any term, 
+representation or warranty of this Agreement.
+(f) High Risk Activities.  The TclPro Software is not fault-
+tolerant and is not designed, manufactured or intended for use or 
+resale in hazardous environments requiring fail-safe 
+performance (such as, without limitation, the operation of 
+nuclear facilities, aircraft navigation or communication systems, 
+air traffic control, life support machines, or weapons systems) in 
+which the failure of the TclPro Software could lead to death, 
+personal injury, or severe physical or environmental damage 
+(?High Risk Activities?). Accordingly, the License excludes any 
+High Risk Activities and you agree (a) not to use TclPro 
+Software with respect to any High Risk Activities and (b) to 
+indemnify Ajuba and its licensors from all losses, claims, 
+damages, costs, attorneys? fees and other expenses relating to 
+such High Risk Activities.
+(g) Government Use.  If you are a United States 
+Government agency or acquired the License pursuant to a 
+government contract or with government funds, then as defined 
+in FAR section 2.101, DFAR section 252.227-7014(a)(1) and 
+DFAR section 252.227-7014(a)(5) or otherwise, all Software 
+provided in connection with this Agreement are ?commercial 
+items,? ?commercial computer software? and/or ?commercial 
+computer software documentation.?  Consistent with DFAR 
+section 227.7202 and FAR section 12.212, any use, 
+modification, reproduction, release, performance, display, 
+disclosure or distribution thereof by or for the U.S. Government 
+shall be governed solely by the terms of this Agreement and 
+shall be prohibited except to the extent expressly permitted by 
+the terms of this Agreement.  You shall ensure that each copy 
+used or possessed by or for the government is labeled to reflect 
+the foregoing.  Use, reproduction, or disclosure by governments 
+of other countries is subject to applicable laws.  
+
+
+(h) Assignment.  Neither this Agreement nor the License 
+may be assigned without the prior written consent of Ajuba.  
+Any attempt to do so shall be void.  Notwithstanding the 
+foregoing, you may assign this Agreement or delegate your 
+obligations to any acquiror of all or of substantially all of your 
+assets or business or equity securities.  Ajuba may assign and 
+transfer any of its rights and obligations under this Agreement 
+without your consent.  
+(i) EACH PARTY RECOGNIZES AND AGREES THAT 
+THE WARRANTY DISCLAIMERS AND LIABILITY AND 
+REMEDY LIMITATIONS IN THIS AGREEMENT ARE 
+MATERIAL BARGAINED FOR BASES OF THIS 
+AGREEMENT AND THAT THEY HAVE BEEN TAKEN 
+INTO ACCOUNT AND REFLECTED IN DETERMINING 
+THE CONSIDERATION TO BE GIVEN BY EACH PARTY 
+UNDER THIS AGREEMENT AND IN THE DECISION BY 
+EACH PARTY TO ENTER INTO THIS AGREEMENT.
+Should you have any questions regarding this TclPro Software 
+License Agreement, or if you desire to contact Ajuba for any 
+reason, please forward inquiries by email to info@ajubasolutions.com, 
+by fax to (650) 210-0101, or by telephone to (650) 210-0100.
+
+EXHIBIT A
+The following terms apply to the all versions of the core Tcl/Tk releases, the Tcl/Tk browser plug-in version 2.0, 
+and TclBlend and Jacl version 1.0. Please note that the TclPro tools are under a different license agreement. This 
+agreement is part of the standard Tcl/Tk distribution as the file named ?license.terms?. 
+TCL/TK LICENSE TERMS
+This software is copyrighted by the Regents of the University of California, Sun Microsystems, Inc., Ajuba 
+Solutions, and other parties. The following terms apply to all files associated with the software unless explicitly 
+disclaimed in individual files. 
+The authors hereby grant permission to use, copy, modify, distribute, and license this software and its 
+documentation for any purpose, provided that existing copyright notices are retained in all copies and that this notice 
+is included verbatim in any distributions. No written agreement, license, or royalty fee is required for any of the 
+authorized uses. Modifications to this software may be copyrighted by their authors and need not follow the 
+licensing terms described here, provided that the new terms are clearly indicated on the first page of each file where 
+they apply. 
+IN NO EVENT SHALL THE AUTHORS OR DISTRIBUTORS BE LIABLE TO ANY PARTY FOR DIRECT, 
+INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OF 
+THIS SOFTWARE, ITS DOCUMENTATION, OR ANY DERIVATIVES THEREOF, EVEN IF THE AUTHORS 
+HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+THE AUTHORS AND DISTRIBUTORS SPECIFICALLY DISCLAIM ANY WARRANTIES, INCLUDING, 
+BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+PARTICULAR PURPOSE, AND NON-INFRINGEMENT. THIS SOFTWARE IS PROVIDED ON AN ?AS IS? 
+BASIS, AND THE AUTHORS AND DISTRIBUTORS HAVE NO OBLIGATION TO PROVIDE 
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS. 
+GOVERNMENT USE: If you are acquiring this software on behalf of the U.S. government, the Government shall 
+have only ?Restricted Rights? in the software and related documentation as defined in the Federal Acquisition 
+Regulations (FARs) in Clause 52.227.19 (c) (2). If you are acquiring the software on behalf of the Department of 
+Defense, the software shall be classified as ?Commercial Computer Software? and the Government shall have only 
+?Restricted Rights? as defined in Clause 252.227-7013 (c) (1) of DFARs. Notwithstanding the foregoing, the 
+authors grant the U.S. Government and others acting in its behalf permission to use and distribute the software in 
+accordance with the terms specified in this license.
+
+
