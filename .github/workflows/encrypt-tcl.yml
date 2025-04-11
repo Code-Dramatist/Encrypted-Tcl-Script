@@ -64,37 +64,40 @@ jobs:
           # 创建输出目录
           RUN mkdir -p /app/output
 
+          # 复制文件
+          COPY ./tclpro1.4 /app/tclpro1.4/
+          COPY ./src /app/src/
+
           # 创建安装脚本
-          RUN echo '#!/bin/bash\n\
-          mkdir -p /opt/tclpro1.4\n\
-          cd /app\n\
-          ./tclpro1.4/setup.sh -Text << EOF\n\
-          y\n\
-          /opt/tclpro1.4\n\
-          y\n\
-          EOF\n\
-          ' > /app/install_tclpro.sh && \
-              chmod +x /app/install_tclpro.sh
+          RUN echo '#!/bin/bash' > /app/install_tclpro.sh && \
+              echo 'mkdir -p /opt/tclpro1.4' >> /app/install_tclpro.sh && \
+              echo 'cd /app' >> /app/install_tclpro.sh && \
+              echo './tclpro1.4/setup.sh -Text << EOF' >> /app/install_tclpro.sh && \
+              echo 'y' >> /app/install_tclpro.sh && \
+              echo '/opt/tclpro1.4' >> /app/install_tclpro.sh && \
+              echo 'y' >> /app/install_tclpro.sh && \
+              echo 'EOF' >> /app/install_tclpro.sh
 
           # 创建加密脚本
-          RUN echo '#!/bin/bash\n\
-          # 查找 procomp 工具\n\
-          PROCOMP_PATH=$(find /opt/tclpro1.4 -name "procomp" -type f | head -1)\n\
-          if [ -z "$PROCOMP_PATH" ]; then\n\
-            echo "Error: procomp not found"\n\
-            exit 1\n\
-          fi\n\
-          \n\
-          # 加密所有 Tcl 脚本\n\
-          find /app/src -name "*.tcl" | while read tcl_file; do\n\
-            rel_path=$(dirname "$tcl_file" | sed "s|^/app/src/||")\n\
-            filename=$(basename "$tcl_file" .tcl)\n\
-            mkdir -p "/app/output/$rel_path"\n\
-            "$PROCOMP_PATH" "$tcl_file" -o "/app/output/$rel_path/$filename.tbc"\n\
-            echo "Encrypted $tcl_file to /app/output/$rel_path/$filename.tbc"\n\
-          done\n\
-          ' > /app/encrypt_tcl.sh && \
-              chmod +x /app/encrypt_tcl.sh
+          RUN echo '#!/bin/bash' > /app/encrypt_tcl.sh && \
+              echo '# 查找 procomp 工具' >> /app/encrypt_tcl.sh && \
+              echo 'PROCOMP_PATH=$(find /opt/tclpro1.4 -name "procomp" -type f | head -1)' >> /app/encrypt_tcl.sh && \
+              echo 'if [ -z "$PROCOMP_PATH" ]; then' >> /app/encrypt_tcl.sh && \
+              echo '  echo "Error: procomp not found"' >> /app/encrypt_tcl.sh && \
+              echo '  exit 1' >> /app/encrypt_tcl.sh && \
+              echo 'fi' >> /app/encrypt_tcl.sh && \
+              echo '' >> /app/encrypt_tcl.sh && \
+              echo '# 加密所有 Tcl 脚本' >> /app/encrypt_tcl.sh && \
+              echo 'find /app/src -name "*.tcl" | while read tcl_file; do' >> /app/encrypt_tcl.sh && \
+              echo '  rel_path=$(dirname "$tcl_file" | sed "s|^/app/src/||")' >> /app/encrypt_tcl.sh && \
+              echo '  filename=$(basename "$tcl_file" .tcl)' >> /app/encrypt_tcl.sh && \
+              echo '  mkdir -p "/app/output/$rel_path"' >> /app/encrypt_tcl.sh && \
+              echo '  "$PROCOMP_PATH" "$tcl_file" -o "/app/output/$rel_path/$filename.tbc"' >> /app/encrypt_tcl.sh && \
+              echo '  echo "Encrypted $tcl_file to /app/output/$rel_path/$filename.tbc"' >> /app/encrypt_tcl.sh && \
+              echo 'done' >> /app/encrypt_tcl.sh
+
+          # 给脚本添加执行权限
+          RUN chmod +x /app/install_tclpro.sh /app/encrypt_tcl.sh
 
           # 设置入口点
           CMD ["/bin/bash", "-c", "/app/install_tclpro.sh && /app/encrypt_tcl.sh"]
