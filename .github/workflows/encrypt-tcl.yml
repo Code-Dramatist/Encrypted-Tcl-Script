@@ -29,7 +29,7 @@ jobs:
   encrypt-and-release:
     runs-on: ubuntu-latest
     container:
-      image: ubuntu:20.04  # Using Ubuntu for better compatibility with TclPro
+      image: centos:7  # Using CentOS 7 (based on Red Hat) for compatibility with TclPro
 
     steps:
       - name: Checkout repository
@@ -37,8 +37,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install -y tcl expect libx11-6 libxss1 libxt6 libxmu6 libxft2 libxext6 libxrender1 libfontconfig1 libxpm4 libsm6 libice6
+          # 安装必要的依赖项
+          yum -y update
+          yum -y install tcl expect libX11 libXScrnSaver libXt libXmu libXft libXext libXrender fontconfig libXpm libSM libICE which file findutils
 
           # 使用工程目录中的 TclPro
           echo "\n\n===== 使用工程目录中的 TclPro ====="
