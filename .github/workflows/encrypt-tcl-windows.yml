@@ -1,0 +1,189 @@
+name: Encrypt Tcl Scripts (Windows)
+
+on:
+  push:
+    paths:
+      - 'src/**/*.tcl'
+    branches:
+      - main
+  workflow_dispatch:  # 允许手动触发
+    inputs:
+      specific_file:
+        description: '要加密的特定文件路径 (例如: src/example.tcl)，留空则加密所有文件'
+        required: false
+        default: ''
+      release_name:
+        description: '发布名称 (默认: Encrypted Tcl Scripts)'
+        required: false
+        default: 'Encrypted Tcl Scripts'
+      create_release:
+        description: '是否创建 GitHub Release'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  encrypt-and-release:
+    runs-on: windows-latest  # 使用 Windows 运行器
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Download and install TclPro
+        run: |
+          # 创建临时目录
+          mkdir -p temp
+          
+          # 下载 TclPro Windows 版本
+          curl -L -o temp/tclpro141.exe "https://sourceforge.net/projects/tclpro/files/TclPro-1.4.1/1.4.1/tclpro141.exe/download"
+          
+          # 创建安装目录
+          mkdir -p "C:\TclPro"
+          
+          # 尝试静默安装 TclPro
+          # 注意：如果安装程序不支持静默安装，可能需要使用其他方法
+          Write-Host "正在安装 TclPro..."
+          Start-Process -FilePath "temp\tclpro141.exe" -ArgumentList "/S", "/D=C:\TclPro" -Wait
+          
+          # 检查安装是否成功
+          if (Test-Path "C:\TclPro") {
+            Write-Host "TclPro 安装目录存在"
+            Get-ChildItem -Path "C:\TclPro" -Recurse | Select-Object -First 20
+          } else {
+            Write-Host "警告: TclPro 安装目录不存在，尝试查找其他可能的安装位置"
+            # 尝试查找可能的安装位置
+            $possiblePaths = @(
+              "C:\Program Files\TclPro",
+              "C:\Program Files (x86)\TclPro",
+              "$env:USERPROFILE\TclPro",
+              "$env:LOCALAPPDATA\TclPro"
+            )
+            
+            foreach ($path in $possiblePaths) {
+              if (Test-Path $path) {
+                Write-Host "找到可能的 TclPro 安装目录: $path"
+                Get-ChildItem -Path $path -Recurse | Select-Object -First 20
+              }
+            }
+          }
+          
+          # 查找 procomp.exe
+          $procompPath = $null
+          $searchPaths = @(
+            "C:\TclPro",
+            "C:\Program Files\TclPro",
+            "C:\Program Files (x86)\TclPro",
+            "$env:USERPROFILE\TclPro",
+            "$env:LOCALAPPDATA\TclPro"
+          )
+          
+          foreach ($path in $searchPaths) {
+            $found = Get-ChildItem -Path $path -Filter "procomp.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
+            if ($found) {
+              $procompPath = $found
+              Write-Host "找到 procomp.exe: $procompPath"
+              break
+            }
+          }
+          
+          if (-not $procompPath) {
+            Write-Host "错误: 无法找到 procomp.exe"
+            exit 1
+          }
+          
+          # 将 procomp 路径保存到环境变量，供后续步骤使用
+          echo "PROCOMP_PATH=$procompPath" | Out-File -FilePath $env:GITHUB_ENV -Append
+        shell: pwsh
+      
+      - name: Encrypt Tcl files
+        run: |
+          # 创建输出目录
+          mkdir -p output
+          
+          # 检查是否指定了特定文件
+          $specificFile = "${{ github.event.inputs.specific_file }}"
+          
+          if ($specificFile -and (Test-Path $specificFile)) {
+            Write-Host "已指定加密文件: $specificFile"
+            $filesToEncrypt = @($specificFile)
+          } else {
+            if ($specificFile) {
+              Write-Host "警告: 指定的文件 '$specificFile' 不存在，将加密所有 .tcl 文件"
+            } else {
+              Write-Host "未指定特定文件，将加密所有 .tcl 文件"
+            }
+            $filesToEncrypt = Get-ChildItem -Path src -Filter "*.tcl" -Recurse | Select-Object -ExpandProperty FullName
+          }
+          
+          foreach ($tclFile in $filesToEncrypt) {
+            Write-Host "处理文件: $tclFile"
+            
+            # 获取相对路径和文件名
+            $relPath = [System.IO.Path]::GetDirectoryName($tclFile) -replace '^src\\', ''
+            $fileName = [System.IO.Path]::GetFileNameWithoutExtension($tclFile)
+            
+            # 创建输出目录结构
+            $outputDir = "output\$relPath"
+            if (!(Test-Path $outputDir)) {
+              New-Item -Path $outputDir -ItemType Directory -Force | Out-Null
+            }
+            
+            # 使用 TclPro 加密 Tcl 文件
+            $outputFile = "$outputDir\$fileName.tbc"
+            Write-Host "执行加密命令: $env:PROCOMP_PATH `"$tclFile`" -o `"$outputFile`""
+            & "$env:PROCOMP_PATH" "$tclFile" -o "$outputFile"
+            
+            if (Test-Path $outputFile) {
+              Write-Host "成功加密 $tclFile 到 $outputFile"
+            } else {
+              Write-Host "错误: 加密失败! 未生成 TBC 文件"
+            }
+          }
+        shell: pwsh
+      
+      - name: Verify encryption
+        run: |
+          $tbcFiles = Get-ChildItem -Path output -Filter "*.tbc" -Recurse
+          Write-Host "Listing encrypted TBC files:"
+          $tbcFiles | ForEach-Object { Write-Host $_.FullName }
+          
+          $tbcCount = $tbcFiles.Count
+          Write-Host "Total TBC files generated: $tbcCount"
+          
+          if ($tbcCount -eq 0) {
+            Write-Host "Error: No TBC files were generated!"
+            exit 1
+          }
+          
+          # 显示文件内容示例
+          if ($tbcFiles.Count -gt 0) {
+            $sampleFile = $tbcFiles[0].FullName
+            Write-Host "`n`n===== 文件内容示例: $sampleFile ====="
+            Get-Content -Path $sampleFile -TotalCount 10
+          }
+        shell: pwsh
+      
+      - name: Create Release
+        id: create_release
+        if: ${{ github.event.inputs.create_release != 'false' }}
+        uses: softprops/action-gh-release@v1
+        with:
+          files: output/**/*.tbc
+          name: ${{ github.event.inputs.release_name != '' && github.event.inputs.release_name || 'Encrypted Tcl Scripts' }} ${{ github.run_number }}
+          tag_name: v${{ github.run_number }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Upload artifacts without creating release
+        if: ${{ github.event.inputs.create_release == 'false' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: encrypted-tcl-files
+          path: output/**/*.tbc
+          retention-days: 30
