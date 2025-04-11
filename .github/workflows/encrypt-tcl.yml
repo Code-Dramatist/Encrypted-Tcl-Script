@@ -29,7 +29,7 @@ jobs:
   encrypt-and-release:
     runs-on: ubuntu-latest
     container:
-      image: centos:7  # Using CentOS 7 (based on Red Hat) for compatibility with TclPro
+      image: rockylinux:8  # Using Rocky Linux 8 (based on Red Hat) for compatibility with TclPro
 
     steps:
       - name: Checkout repository
@@ -38,8 +38,15 @@ jobs:
       - name: Install dependencies
         run: |
           # 安装必要的依赖项
-          yum -y update
-          yum -y install tcl expect libX11 libXScrnSaver libXt libXmu libXft libXext libXrender fontconfig libXpm libSM libICE which file findutils
+          dnf -y update
+
+          # 启用额外的存储库
+          dnf -y install epel-release
+          dnf -y install dnf-plugins-core
+          dnf config-manager --set-enabled powertools
+
+          # 安装 X11 相关库和其他工具
+          dnf -y install tcl expect libX11 libXScrnSaver libXt libXmu libXft libXext libXrender fontconfig libXpm libSM libICE which file findutils glibc-devel
 
           # 使用工程目录中的 TclPro
           echo "\n\n===== 使用工程目录中的 TclPro ====="
