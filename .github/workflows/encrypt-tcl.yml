@@ -7,6 +7,23 @@ on:
     branches:
       - main
   workflow_dispatch:  # Allow manual triggering
+    inputs:
+      specific_file:
+        description: '要加密的特定文件路径 (例如: src/example.tcl)，留空则加密所有文件'
+        required: false
+        default: ''
+      release_name:
+        description: '发布名称 (默认: Encrypted Tcl Scripts)'
+        required: false
+        default: 'Encrypted Tcl Scripts'
+      create_release:
+        description: '是否创建 GitHub Release'
+        required: true
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 jobs:
   encrypt-and-release:
@@ -118,9 +135,28 @@ jobs:
             exit 1
           fi
 
-          # Find all .tcl files in the src directory
+          # 准备加密文件列表
           echo "\n\n===== 开始加密 Tcl 脚本 ====="
-          find src -name "*.tcl" | while read tcl_file; do
+
+          # 检查是否指定了特定文件
+          SPECIFIC_FILE="${{ github.event.inputs.specific_file }}"
+
+          if [ -n "$SPECIFIC_FILE" ] && [ -f "$SPECIFIC_FILE" ]; then
+            echo "已指定加密文件: $SPECIFIC_FILE"
+            # 如果指定了文件并且文件存在，则只加密该文件
+            FILES_TO_ENCRYPT="$SPECIFIC_FILE"
+          else
+            if [ -n "$SPECIFIC_FILE" ]; then
+              echo "警告: 指定的文件 '$SPECIFIC_FILE' 不存在，将加密所有 .tcl 文件"
+            else
+              echo "未指定特定文件，将加密所有 .tcl 文件"
+            fi
+            # 如果没有指定文件或指定的文件不存在，则加密所有 .tcl 文件
+            FILES_TO_ENCRYPT=$(find src -name "*.tcl")
+          fi
+
+          # 遍历并加密文件
+          echo "$FILES_TO_ENCRYPT" | while read tcl_file; do
             echo "\n处理文件: $tcl_file"
 
             # Get the relative path and filename
@@ -160,12 +196,21 @@ jobs:
 
       - name: Create Release
         id: create_release
+        if: ${{ github.event.inputs.create_release != 'false' }}
         uses: softprops/action-gh-release@v1
         with:
           files: output/**/*.tbc
-          name: Encrypted Tcl Scripts ${{ github.run_number }}
+          name: ${{ github.event.inputs.release_name != '' && github.event.inputs.release_name || 'Encrypted Tcl Scripts' }} ${{ github.run_number }}
           tag_name: v${{ github.run_number }}
           draft: false
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts without creating release
+        if: ${{ github.event.inputs.create_release == 'false' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: encrypted-tcl-files
+          path: output/**/*.tbc
+          retention-days: 30

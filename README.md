@@ -18,11 +18,16 @@ This repository provides an automated workflow to encrypt Tcl scripts into TBC (
 
 ## Manual Trigger
 
-You can also manually trigger the encryption workflow:
+You can also manually trigger the encryption workflow with custom options:
 
 1. Go to the "Actions" tab in your GitHub repository
 2. Select the "Encrypt Tcl Scripts" workflow
 3. Click "Run workflow"
+4. Configure the following options:
+   - **要加密的特定文件路径**: 可以指定要加密的特定文件（例如：`src/example.tcl`），留空则加密所有 `.tcl` 文件
+   - **发布名称**: 自定义 GitHub Release 的名称
+   - **是否创建 GitHub Release**: 选择是否创建 GitHub Release，如果选择 `false`，加密文件将作为工作流的构件上传
+5. Click "Run workflow" to start the encryption process
 
 ## Requirements
 
@@ -42,4 +47,8 @@ This workflow uses TclPro 1.4.1 for encryption, which is automatically downloade
 
 - TBC files are not fully secure and should not be used for sensitive information
 - The workflow is triggered automatically when Tcl files are pushed to the `src` directory
-- You can also trigger the workflow manually from the GitHub Actions tab
+- 手动触发工作流时可以指定以下选项：
+  - 加密特定的 Tcl 文件，而不是所有文件
+  - 自定义 GitHub Release 的名称
+  - 选择是否创建 GitHub Release
+- 如果选择不创建 GitHub Release，加密文件将作为工作流的构件保存 30 天
