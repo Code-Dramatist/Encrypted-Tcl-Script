@@ -34,13 +34,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Docker
+      - name: Check Docker Installation
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-          sudo systemctl start docker
-          sudo systemctl enable docker
-          sudo usermod -aG docker $USER
+          # GitHub Actions 运行器已经预装了 Docker
+          docker --version
+          docker info
 
       - name: Create Dockerfile for TclPro
         run: |
@@ -104,13 +102,13 @@ jobs:
       - name: Build and Run Docker Image
         run: |
           # 构建 Docker 镜像
-          sudo docker build -t tclpro-centos6 .
+          docker build -t tclpro-centos6 .
 
           # 运行 Docker 容器
-          sudo docker run --name tclpro-container tclpro-centos6
+          docker run --name tclpro-container tclpro-centos6
 
           # 从容器中复制加密后的文件
-          sudo docker cp tclpro-container:/app/output .
+          docker cp tclpro-container:/app/output .
 
           # 显示加密后的文件
           find output -type f | sort
@@ -153,7 +151,7 @@ jobs:
 
           # 显示 Docker 容器的日志
           echo "\n\n===== Docker 容器日志 ====="
-          sudo docker logs tclpro-container
+          docker logs tclpro-container
 
       - name: Create Release
         id: create_release
