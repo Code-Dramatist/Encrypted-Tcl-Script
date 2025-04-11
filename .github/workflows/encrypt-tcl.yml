@@ -1,0 +1,171 @@
+name: Encrypt Tcl Scripts
+
+on:
+  push:
+    paths:
+      - 'src/**/*.tcl'
+    branches:
+      - main
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  encrypt-and-release:
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.04  # Using Ubuntu for better compatibility with TclPro
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y wget tar gzip tcl expect libx11-6 libxss1 libxt6 libxmu6 libxft2 libxext6 libxrender1 libfontconfig1 libxpm4 libsm6 libice6
+
+          # Download TclPro from SourceForge
+          mkdir -p /tmp/tclpro
+          wget -O /tmp/tclpro.tar.gz "https://sourceforge.net/projects/tclpro/files/TclPro-1.4.1/1.4.1/tclpro141.linux.tar.gz/download"
+          tar -xzf /tmp/tclpro.tar.gz -C /tmp/tclpro
+
+          # 创建自动安装脚本
+          cat > /tmp/tclpro_install.exp << 'EOF'
+          #!/usr/bin/expect -f
+          # 自动安装 TclPro 的 expect 脚本
+          set timeout -1
+
+          # 创建安装目录并设置权限
+          spawn mkdir -p /opt/tclpro1.4
+          expect eof
+
+          spawn chmod 777 /opt/tclpro1.4
+          expect eof
+
+          # 启动安装程序
+          spawn /tmp/tclpro/tclpro1.4/setup.sh
+
+          # 处理可能的错误或提示
+          expect {
+            "Do you accept the terms of the license agreement? \\(y/n\\) " {
+              send "y\r"
+              exp_continue
+            }
+            "Installation directory \\(default: /usr/local/tclpro1.4\\): " {
+              send "/opt/tclpro1.4\r"
+              exp_continue
+            }
+            "Directory /opt/tclpro1.4 exists.  Overwrite? \\(y/n\\) " {
+              send "y\r"
+              exp_continue
+            }
+            "Installation complete." {
+              # 安装完成
+            }
+            timeout {
+              puts "安装超时！"
+              exit 1
+            }
+            eof {
+              # 安装程序退出
+            }
+          }
+          EOF
+
+          # 给脚本执行权限
+          chmod +x /tmp/tclpro_install.exp
+
+          # 运行自动安装脚本
+          /tmp/tclpro_install.exp
+
+          # 设置环境变量
+          export TCLPRO_HOME=/opt/tclpro1.4
+          export PATH=$TCLPRO_HOME/bin:$PATH
+
+          # 验证安装
+          echo "\n\n===== TclPro 安装目录结构 ====="
+          ls -la /opt/tclpro1.4
+
+          echo "\n\n===== TclPro bin 目录内容 ====="
+          ls -la $TCLPRO_HOME/bin
+
+          echo "\n\n===== procomp 工具信息 ====="
+          file $TCLPRO_HOME/bin/procomp
+
+          echo "\n\n===== 环境变量 ====="
+          echo "TCLPRO_HOME=$TCLPRO_HOME"
+          echo "PATH=$PATH"
+
+          echo "\n\n===== TclPro 已安装在: $TCLPRO_HOME ====="
+
+      - name: Find and encrypt Tcl scripts
+        run: |
+          mkdir -p output
+
+          # 确认 TclPro 安装状态
+          echo "\n\n===== 确认 TclPro 安装状态 ====="
+          export TCLPRO_HOME=/opt/tclpro1.4
+          export PATH=$TCLPRO_HOME/bin:$PATH
+
+          if [ -f "$TCLPRO_HOME/bin/procomp" ]; then
+            echo "procomp 工具存在于 $TCLPRO_HOME/bin/procomp"
+            ls -la $TCLPRO_HOME/bin/procomp
+          else
+            echo "\n\n错误: procomp 工具不存在!"
+            echo "列出 /opt 目录内容:"
+            ls -la /opt
+            echo "列出 /opt/tclpro1.4 目录内容 (如果存在):"
+            ls -la /opt/tclpro1.4 || echo "目录不存在"
+            exit 1
+          fi
+
+          # Find all .tcl files in the src directory
+          echo "\n\n===== 开始加密 Tcl 脚本 ====="
+          find src -name "*.tcl" | while read tcl_file; do
+            echo "\n处理文件: $tcl_file"
+
+            # Get the relative path and filename
+            rel_path=$(dirname "$tcl_file" | sed 's|^src/||')
+            filename=$(basename "$tcl_file" .tcl)
+
+            # Create output directory structure if it doesn't exist
+            mkdir -p "output/$rel_path"
+
+            # Encrypt the Tcl file to TBC format using TclPro's procomp
+            echo "执行加密命令: $TCLPRO_HOME/bin/procomp $tcl_file -o output/$rel_path/$filename.tbc"
+            $TCLPRO_HOME/bin/procomp "$tcl_file" -o "output/$rel_path/$filename.tbc"
+
+            # 检查加密结果
+            if [ -f "output/$rel_path/$filename.tbc" ]; then
+              echo "成功加密 $tcl_file 到 output/$rel_path/$filename.tbc"
+              ls -la "output/$rel_path/$filename.tbc"
+            else
+              echo "错误: 加密失败! 未生成 TBC 文件"
+            fi
+          done
+
+      - name: Verify encryption
+        run: |
+          echo "Listing encrypted TBC files:"
+          find output -name "*.tbc" -type f | sort
+
+          # Count the number of encrypted files
+          TBC_COUNT=$(find output -name "*.tbc" -type f | wc -l)
+          echo "Total TBC files generated: $TBC_COUNT"
+
+          # Verify that we have at least one TBC file
+          if [ "$TBC_COUNT" -eq 0 ]; then
+            echo "Error: No TBC files were generated!"
+            exit 1
+          fi
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: output/**/*.tbc
+          name: Encrypted Tcl Scripts ${{ github.run_number }}
+          tag_name: v${{ github.run_number }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
